@@ -27,5 +27,5 @@
     /*  Emit interop between CommonJS and ES modules */
     "esModuleInterop": true
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "./typings-custom/**/*.ts"]
 }

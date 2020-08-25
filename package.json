@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "yarn parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "lint": "yarn lint:code",
+    "lint:code": "eslint --ext ts,tsx src"
   },
   "devDependencies": {
     "@parcel/transformer-css": "^2.0.0-alpha.3",
@@ -24,5 +26,8 @@
     "parcel-plugin-prettier": "^0.2.1",
     "sass": "^1.26.10",
     "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "kontra": "^7.1.2"
   }
 }
