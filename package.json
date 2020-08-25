@@ -1,0 +1,19 @@
+{
+  "name": "js13k2020",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:ByteDecoder/js13k2020.git",
+  "author": "Rodrigo Reyes <encode@bytedecoder.me>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "devDependencies": {
+    "@parcel/transformer-css": "^2.0.0-alpha.3",
+    "@parcel/transformer-postcss": "^2.0.0-alpha.3",
+    "parcel": "^2.0.0-beta.1",
+    "parcel-plugin-prettier": "^0.2.1",
+    "sass": "^1.26.10"
+  }
+}
