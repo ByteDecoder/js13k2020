@@ -1,2 +1,1 @@
-
-console.log("We are legion");
+console.log('We are legion');
