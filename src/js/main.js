@@ -1,10 +1,8 @@
-import kontra, { init, Sprite, GameLoop } from 'kontra';
+let { init, Sprite, GameLoop } = kontra;
 
-debugger;
+let { canvas } = init();
 
-const { canvas } = init();
-
-const sprite = Sprite({
+let sprite = Sprite({
   x: 100, // starting x,y position of the sprite
   y: 80,
   color: 'red', // fill color of the sprite rectangle
@@ -13,9 +11,9 @@ const sprite = Sprite({
   dx: 2 // move the sprite 2px to the right every frame
 });
 
-const loop = GameLoop({
+let loop = GameLoop({
   // create the main game loop
-  update: function () {
+  update: function() {
     // update the game state
     sprite.update();
 
@@ -25,12 +23,10 @@ const loop = GameLoop({
       sprite.x = -sprite.width;
     }
   },
-  render: function () {
+  render: function() {
     // render the game state
     sprite.render();
   }
 });
 
 loop.start(); // start the game
-
-console.log('We are legion');
