@@ -1,8 +1,25 @@
 {
   "compilerOptions": {
-    "noImplicitAny": true,
+    "outDir": "./dist/",
+    "moduleResolution": "node",
+    /* Base directory to resolve non-absolute module names */
+    "baseUrl": "./src/js",
+    /* Maps imports to locations - e.g. ~models will go to ./src/models */
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "noImplicitAny": false,
     "module": "es6",
-    "target": "es6",
-    "allowJs": true
-  }
+    "target": "es2016",
+    "allowJs": true,
+    "sourceMap": true,
+    "lib": ["es2016", "dom"],
+    /* List of folders to include type definitions from */
+    "typeRoots": ["node_modules/@types"],
+    /* allow import React instead of import * as React */
+    "allowSyntheticDefaultImports": true,
+    /*  Emit interop between CommonJS and ES modules */
+    "esModuleInterop": true
+  },
+  "include": ["src/js/**/*"]
 }
