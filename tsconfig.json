@@ -11,6 +11,8 @@
     "noImplicitAny": false,
     "module": "es6",
     "target": "es2016",
+    "noEmit": true,
+    "importHelpers": true,
     "allowJs": true,
     "sourceMap": true,
     "lib": ["es2016", "dom"],
