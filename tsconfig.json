@@ -1,19 +1,9 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
     "baseUrl": "./src/js",
     "paths": {
-      "~/*": ["./*"]
-    },
-    "noImplicitAny": false,
-    "module": "es6",
-    "target": "es6",
-    "noEmit": true,
-    "allowJs": true,
-    "sourceMap": true,
-    "lib": ["es6", "dom"],
-    "typeRoots": ["node_modules/@types"],
-    "esModuleInterop": true
+      "~*": ["./*"]
+    }
   },
   "include": ["src/js/**/*"]
 }

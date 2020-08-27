@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
 import { init } from 'kontra';
+import gameEngine from './gameEngine';
 
-const { canvas, context } = init();
+init();
 
-console.log(canvas);
-console.log(context);
+gameEngine.game();
