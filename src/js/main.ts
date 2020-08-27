@@ -1,23 +1,7 @@
-/* import kontra from 'kontra';
+/* eslint-disable no-console */
+import { init } from 'kontra';
 
-console.log(kontra);
-console.log('We are Legion');
+const { canvas, context } = init();
 
-document.addEventListener('DOMContentLoaded', function(event) {
-  //the event occurred
-  let canvas = document.querySelector('canvas');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  kontra.init();
-});
- */
-
-import kontra from 'kontra';
-
-document.addEventListener('DOMContentLoaded', function(): void {
-  // let { canvas, context } = init();
-  // eslint-disable-next-line no-debugger
-  debugger;
-  kontra.init();
-});
+console.log(canvas);
+console.log(context);
