@@ -18,7 +18,7 @@
   "rules": {
     "prettier/prettier": "error",
     "semi": ["error", "always"],
-    "space-before-function-paren": ["error", { "anonymous": "ignore", "named": "always" }],
+    "space-before-function-paren": ["error", "never"],
     "func-names": ["error", "never"],
     "import/extensions": [0, "never"]
   },
