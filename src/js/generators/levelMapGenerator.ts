@@ -1,8 +1,8 @@
 import { Sprite } from 'kontra';
-import { gameScale, blockSize } from './gameGlobals';
-import wall from './wall';
+import { gameScale, blockSize } from '../gameGlobals';
+import wall from '../wall';
 import { worldHeightSize, worldWidthSize } from './worldGenerator';
-import { roomContainer, entryRoom } from './rooms/roomTypes';
+import { roomContainer, entryRoom } from '../rooms/roomTypes';
 
 /**
  * Detailed level world map with sprite walls.

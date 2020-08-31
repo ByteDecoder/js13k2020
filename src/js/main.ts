@@ -1,8 +1,8 @@
-import { init, Sprite, GameLoop, initKeys, keyPressed, Scene } from 'kontra';
+import { init, GameLoop, initKeys, keyPressed, Scene } from 'kontra';
 import { blockSize, gameScale } from './gameGlobals';
-import worldGenerator, { entryPoint } from './worldGenerator';
-import { entryRoom } from './rooms/roomTypes';
-import levelMapGenerator from './levelMapGenerator';
+import worldGenerator from './generators/worldGenerator';
+import levelMapGenerator from './generators/levelMapGenerator';
+import Submarine from './submarine';
 
 init();
 initKeys();
@@ -17,13 +17,10 @@ const worldMap = worldGenerator.create();
  */
 const { levelMapSprites, worldFullMap } = levelMapGenerator.create(worldMap);
 
-const submarine = Sprite({
-  x: entryPoint.x * entryRoom.width * blockSize * gameScale + 128,
-  y: entryPoint.y * entryRoom.height * blockSize * gameScale + 128,
-  color: 'red',
-  width: blockSize * gameScale,
-  height: blockSize * gameScale
-});
+/**
+ * Submarine player
+ */
+const submarine = Submarine.create();
 
 const levelScene = Scene({
   id: 'levelScene',

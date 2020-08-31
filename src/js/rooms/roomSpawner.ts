@@ -1,6 +1,6 @@
 import roomTemplates from './roomTemplates';
 import { IRoomStruct } from './IRoomStruct';
-import mathUtils from '../mathUtils';
+import mathUtils from '../lib/mathUtils';
 
 /**
  * Generate the next room based on the direction provided.

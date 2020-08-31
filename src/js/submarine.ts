@@ -1,12 +1,19 @@
 import { Sprite } from 'kontra';
 import { gameScale, blockSize } from './gameGlobals';
+import { entryPoint } from './generators/worldGenerator';
+import { entryRoom } from './rooms/roomTypes';
 
-export const submarine = Sprite({
-  x: blockSize * gameScale,
-  y: blockSize * gameScale,
-  color: 'red',
-  width: blockSize * gameScale,
-  height: blockSize * gameScale
-});
+/**
+ * Creates an instance of the submarine player.
+ */
+export const create = (): Sprite => {
+  return Sprite({
+    x: entryPoint.x * entryRoom.width * blockSize * gameScale + 128,
+    y: entryPoint.y * entryRoom.height * blockSize * gameScale + 128,
+    color: 'red',
+    width: blockSize * gameScale,
+    height: blockSize * gameScale
+  });
+};
 
-export default { submarine: 'v0.1.0' };
+export default { create };

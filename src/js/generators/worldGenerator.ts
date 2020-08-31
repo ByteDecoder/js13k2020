@@ -1,5 +1,5 @@
-import { entryRoom } from './rooms/roomTypes';
-import roomSpawner from './rooms/roomSpawner';
+import { entryRoom } from '../rooms/roomTypes';
+import roomSpawner from '../rooms/roomSpawner';
 
 export const worldWidthSize = 15;
 export const worldHeightSize = 15;
