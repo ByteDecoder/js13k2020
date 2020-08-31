@@ -1,7 +1,7 @@
 /**
  * Game sprite scale multiplier.
  */
-export const gameScale = 5;
+export const gameScale = 1;
 /**
  * Game sprite size.
  */

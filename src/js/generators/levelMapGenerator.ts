@@ -25,7 +25,7 @@ const create = (worldMap: number[][]): { levelMapSprites: Sprite[]; worldFullMap
         const startingRow = y * roomData.height;
         const endingRow = startingRow + roomData.height;
         const startingCol = x * roomData.width;
-        const endingCol = startingRow + roomData.width;
+        const endingCol = startingCol + roomData.width;
 
         // Copy the room map data into the worldFullMap
         for (let yRoomData = 0; yRoomData < roomData.height; yRoomData += 1) {
