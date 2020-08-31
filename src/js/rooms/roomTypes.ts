@@ -6,6 +6,8 @@ import { IRoomStruct } from './IRoomStruct';
 export const entryRoom: IRoomStruct = {
   roomDirections: [1, 2, 3, 4],
   roomTileNumber: 10,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -28,6 +30,8 @@ export const entryRoom: IRoomStruct = {
 const bRoom: IRoomStruct = {
   roomDirections: [],
   roomTileNumber: 11,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -50,6 +54,8 @@ const bRoom: IRoomStruct = {
 const lRoom: IRoomStruct = {
   roomDirections: [],
   roomTileNumber: 12,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -72,6 +78,8 @@ const lRoom: IRoomStruct = {
 const lrRoom: IRoomStruct = {
   roomDirections: [2, 4],
   roomTileNumber: 13,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -94,6 +102,8 @@ const lrRoom: IRoomStruct = {
 const rRoom: IRoomStruct = {
   roomDirections: [],
   roomTileNumber: 14,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -116,6 +126,8 @@ const rRoom: IRoomStruct = {
 const brRoom: IRoomStruct = {
   roomDirections: [2, 3],
   roomTileNumber: 15,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -138,6 +150,8 @@ const brRoom: IRoomStruct = {
 const tRoom: IRoomStruct = {
   roomDirections: [],
   roomTileNumber: 16,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -160,6 +174,8 @@ const tRoom: IRoomStruct = {
 const tbRoom: IRoomStruct = {
   roomDirections: [1, 3],
   roomTileNumber: 17,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -182,6 +198,8 @@ const tbRoom: IRoomStruct = {
 const ltRoom: IRoomStruct = {
   roomDirections: [1, 4],
   roomTileNumber: 18,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -204,6 +222,8 @@ const ltRoom: IRoomStruct = {
 const trRoom: IRoomStruct = {
   roomDirections: [1, 2],
   roomTileNumber: 19,
+  width: 12,
+  height: 12,
   map: [
     [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -219,6 +239,30 @@ const trRoom: IRoomStruct = {
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
   ]
 };
+
+/**
+ * Initialize Room dictionary container.
+ */
+const initializateRoomContainer = () => {
+  const container = new Map<number, IRoomStruct>();
+  container.set(entryRoom.roomTileNumber, entryRoom);
+  container.set(bRoom.roomTileNumber, bRoom);
+  container.set(lRoom.roomTileNumber, lRoom);
+  container.set(lrRoom.roomTileNumber, lrRoom);
+  container.set(rRoom.roomTileNumber, rRoom);
+  container.set(brRoom.roomTileNumber, brRoom);
+  container.set(tRoom.roomTileNumber, tRoom);
+  container.set(tbRoom.roomTileNumber, tbRoom);
+  container.set(ltRoom.roomTileNumber, ltRoom);
+  container.set(trRoom.roomTileNumber, trRoom);
+
+  return container;
+};
+
+/**
+ * Dictionary that contains room data index by roomTileNumber
+ */
+export const roomContainer = initializateRoomContainer();
 
 export default {
   entryRoom,

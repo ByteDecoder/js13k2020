@@ -1,22 +1,20 @@
 import { entryRoom } from './rooms/roomTypes';
 import roomSpawner from './rooms/roomSpawner';
 
-export const worldWidthSize = 30;
-export const worldHeightSize = 30;
+export const worldWidthSize = 15;
+export const worldHeightSize = 15;
 
 /**
  * Initial game entry point.
  */
-const entryPoint = { x: 11, y: 11 };
-
-const [r, c] = [worldHeightSize, worldWidthSize];
+export const entryPoint = { x: 5, y: 5 };
 
 /**
  * Base ocean world template
  */
-const oceanWorld = Array(r)
+const oceanWorld = Array(worldHeightSize)
   .fill(0)
-  .map(() => Array(c).fill(0));
+  .map(() => Array(worldWidthSize).fill(0));
 
 /**
  * Defines a room spawn point data structure.

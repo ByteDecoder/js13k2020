@@ -11,6 +11,14 @@ export interface IRoomStruct {
    */
   roomTileNumber: number;
   /**
+   * Room width.
+   */
+  width: number;
+  /**
+   * Room height.
+   */
+  height: number;
+  /**
    * Door tilemap.
    */
   map: number[][];

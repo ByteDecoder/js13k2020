@@ -1,26 +1,22 @@
 import { init, Sprite, GameLoop, Text, initKeys, keyPressed, Scene } from 'kontra';
-import { blockSize, levelHeightSize, gameScale, levelWidthSize } from './gameGlobals';
-import worldGenerator from './worldGenerator';
+import { blockSize, gameScale } from './gameGlobals';
+import worldGenerator, { worldHeightSize, worldWidthSize, entryPoint } from './worldGenerator';
+import { roomContainer, entryRoom } from './rooms/roomTypes';
 
 init();
 initKeys();
 
+/**
+ * Random generated world map.
+ */
 const worldMap = worldGenerator.create();
 
-const world = [
-  [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-  [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1]
-];
+/**
+ * Detailed level world map with sprite walls.
+ */
+const worldFullMap = Array(entryRoom.height * worldHeightSize)
+  .fill(0)
+  .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
 
 const wallFactory = (x: number, y: number, scale = 1) =>
   Sprite({
@@ -33,8 +29,8 @@ const wallFactory = (x: number, y: number, scale = 1) =>
   });
 
 const submarine = Sprite({
-  x: blockSize * gameScale,
-  y: blockSize * gameScale,
+  x: entryPoint.x * entryRoom.width * blockSize * gameScale + 128,
+  y: entryPoint.y * entryRoom.height * blockSize * gameScale + 128,
   color: 'red',
   width: blockSize * gameScale,
   height: blockSize * gameScale
@@ -54,13 +50,36 @@ let levelMap = [];
 
 const levelCreator = () => {
   const level = [];
-  for (let y = 0; y < levelHeightSize; y += 1) {
-    for (let x = 0; x < levelWidthSize; x += 1) {
-      if (world[y][x] === 1) {
-        const baseX = x * blockSize;
-        const baseY = y * blockSize;
-        const wall = wallFactory(baseX, baseY, gameScale);
-        level.push(wall);
+  for (let y = 0; y < worldHeightSize; y += 1) {
+    for (let x = 0; x < worldWidthSize; x += 1) {
+      if (worldMap[y][x] !== 0) {
+        const roomData = roomContainer.get(worldMap[y][x]);
+
+        const startingRow = y * roomData.height;
+        const endingRow = startingRow + roomData.height;
+        const startingCol = x * roomData.width;
+        const endingCol = startingRow + roomData.width;
+
+        // Copy the room map data into the worldFullMap
+        for (let yRoomData = 0; yRoomData < roomData.height; yRoomData += 1) {
+          worldFullMap[startingRow + yRoomData].splice(
+            startingCol,
+            roomData.map[yRoomData].length,
+            ...roomData.map[yRoomData]
+          );
+        }
+
+        // Creating wall sprites according worldFullMap tileset.
+        for (let yLevelMap = startingRow; yLevelMap < endingRow; yLevelMap += 1) {
+          for (let xLevelMap = startingCol; xLevelMap < endingCol; xLevelMap += 1) {
+            if (worldFullMap[yLevelMap][xLevelMap] === 1) {
+              const baseX = xLevelMap * blockSize;
+              const baseY = yLevelMap * blockSize;
+              const wall = wallFactory(baseX, baseY, gameScale);
+              level.push(wall);
+            }
+          }
+        }
       }
     }
   }
@@ -74,6 +93,8 @@ const levelScene = Scene({
   children: [submarine, ...levelMap]
 });
 
+console.log(worldFullMap);
+
 const loop = GameLoop({
   update(dt) {
     levelScene.lookAt(submarine);
@@ -82,35 +103,33 @@ const loop = GameLoop({
     let positionY = Math.ceil(submarine.y / gameScale / blockSize);
 
     if (keyPressed('up')) {
-      if (world[positionY - 1][positionX] === 0) {
+      if (worldFullMap[positionY - 1][positionX] === 0) {
         submarine.y -= 2 + dt;
       }
     }
 
     if (keyPressed('down')) {
       positionY = Math.ceil((submarine.y + 2) / gameScale / blockSize);
-      if (world[positionY][positionX] === 0) {
+      if (worldFullMap[positionY][positionX] === 0) {
         submarine.y += 2 + dt;
       }
     }
 
     if (keyPressed('right')) {
       positionX = Math.ceil((submarine.x + 2) / gameScale / blockSize);
-      if (world[positionY][positionX] === 0) {
+      if (worldFullMap[positionY][positionX] === 0) {
         submarine.x += 2 + dt;
       }
     }
 
     if (keyPressed('left')) {
-      if (world[positionY][positionX - 1] === 0) {
+      if (worldFullMap[positionY][positionX - 1] === 0) {
         submarine.x -= 2 + dt;
       }
     }
   },
   render() {
-    // submarine.render();
     text.render();
-    // levelMap.forEach((wall) => wall.render());
     levelScene.render();
   }
 });
