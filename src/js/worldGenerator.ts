@@ -1,19 +1,97 @@
-export const worldWidthSize = 12;
-export const worldHeightSize = 12;
+import { entryRoom } from './rooms/roomTypes';
+import roomSpawner from './rooms/roomSpawner';
 
-const entryPoint = { x: 5, y: 6 };
+export const worldWidthSize = 30;
+export const worldHeightSize = 30;
 
-const oceanWorld = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
+/**
+ * Initial game entry point.
+ */
+const entryPoint = { x: 11, y: 11 };
+
+const [r, c] = [worldHeightSize, worldWidthSize];
+
+/**
+ * Base ocean world template
+ */
+const oceanWorld = Array(r)
+  .fill(0)
+  .map(() => Array(c).fill(0));
+
+/**
+ * Defines a room spawn point data structure.
+ */
+interface IRoomSpawnPoint {
+  x: number;
+  y: number;
+  openingDirection: number;
+}
+
+/**
+ * Creates a room spawn point.
+ * @param x
+ * @param y
+ * @param openingDirection
+ */
+const createRoomSpwanPoint = (x: number, y: number, openingDirection: number): IRoomSpawnPoint => {
+  return { x, y, openingDirection };
+};
+
+const pendingRooms: IRoomSpawnPoint[] = [];
+
+/**
+ * Creates a new random worldmap for the game session with rooms.
+ */
+const create = (): number[][] => {
+  const newWorld = [...oceanWorld];
+  newWorld[entryPoint.y][entryPoint.x] = entryRoom.roomTileNumber;
+
+  pendingRooms.push(createRoomSpwanPoint(entryPoint.x, entryPoint.y - 1, 1));
+  pendingRooms.push(createRoomSpwanPoint(entryPoint.x + 1, entryPoint.y, 2));
+  pendingRooms.push(createRoomSpwanPoint(entryPoint.x, entryPoint.y + 1, 3));
+  pendingRooms.push(createRoomSpwanPoint(entryPoint.x - 1, entryPoint.y, 4));
+
+  do {
+    const spawnPoint = pendingRooms.shift();
+    const newRoom = roomSpawner.spawn(spawnPoint.openingDirection);
+
+    newWorld[spawnPoint.y][spawnPoint.x] = newRoom.roomTileNumber;
+
+    newRoom.roomDirections.forEach((direction) => {
+      let newSpawnPoint: IRoomSpawnPoint = null;
+
+      switch (direction) {
+        case 1:
+          if (newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 1);
+          }
+          break;
+        case 2:
+          if (newWorld[spawnPoint.y][spawnPoint.x + 1] === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x + 1, spawnPoint.y, 2);
+          }
+          break;
+        case 3:
+          if (newWorld[spawnPoint.y + 1][spawnPoint.x] === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y + 1, 3);
+          }
+          break;
+        case 4:
+          if (newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x - 1, spawnPoint.y, 4);
+          }
+          break;
+        default:
+          break;
+      }
+      if (newSpawnPoint) {
+        pendingRooms.push(newSpawnPoint);
+      }
+    });
+  } while (pendingRooms.length !== 0);
+
+  console.log(newWorld);
+  return newWorld;
+};
+
+export default { create };

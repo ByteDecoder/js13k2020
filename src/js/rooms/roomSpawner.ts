@@ -1,17 +1,9 @@
 import roomTemplates from './roomTemplates';
 import { IRoomStruct } from './IRoomStruct';
+import mathUtils from '../mathUtils';
 
 /**
- * Random number between a mix and max range.
- * @param min min value.
- * @param max max value.
- */
-const getRandomInt = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-/**
- * Generate the next room based on the direction prvided.
+ * Generate the next room based on the direction provided.
  *
  * @param openingDirection
  * 1 -> need bottom door
@@ -25,19 +17,19 @@ const spawn = (openingDirection: number): IRoomStruct => {
 
   if (openingDirection === 1) {
     // Need to spawn a room with a BOTTOM door
-    randomRoom = getRandomInt(0, roomTemplates.bottomRooms.length);
+    randomRoom = mathUtils.getRandomInt(0, roomTemplates.bottomRooms.length - 1);
     nextRoom = roomTemplates.bottomRooms[randomRoom];
   } else if (openingDirection === 2) {
     // Need to spawn a room with a LEFT door
-    randomRoom = getRandomInt(0, roomTemplates.leftRooms.length);
+    randomRoom = mathUtils.getRandomInt(0, roomTemplates.leftRooms.length - 1);
     nextRoom = roomTemplates.leftRooms[randomRoom];
   } else if (openingDirection === 3) {
     // Need to spawn a room with TOP door
-    randomRoom = getRandomInt(0, roomTemplates.topRooms.length);
+    randomRoom = mathUtils.getRandomInt(0, roomTemplates.topRooms.length - 1);
     nextRoom = roomTemplates.topRooms[randomRoom];
   } else if (openingDirection === 4) {
     // Need to spwan a room with RIGHT door
-    randomRoom = getRandomInt(0, roomTemplates.rightRooms.length);
+    randomRoom = mathUtils.getRandomInt(0, roomTemplates.rightRooms.length - 1);
     nextRoom = roomTemplates.rightRooms[randomRoom];
   }
 

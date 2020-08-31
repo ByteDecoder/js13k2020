@@ -7,6 +7,10 @@ export interface IRoomStruct {
    */
   roomDirections: number[];
   /**
+   * Room tile number.
+   */
+  roomTileNumber: number;
+  /**
    * Door tilemap.
    */
   map: number[][];

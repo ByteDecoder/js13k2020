@@ -1,8 +1,11 @@
 import { init, Sprite, GameLoop, Text, initKeys, keyPressed, Scene } from 'kontra';
 import { blockSize, levelHeightSize, gameScale, levelWidthSize } from './gameGlobals';
+import worldGenerator from './worldGenerator';
 
 init();
 initKeys();
+
+const worldMap = worldGenerator.create();
 
 const world = [
   [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
