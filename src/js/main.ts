@@ -1,18 +1,8 @@
 import { init, Sprite, GameLoop, Text, initKeys, keyPressed, Scene } from 'kontra';
+import { blockSize, levelHeightSize, gameScale, levelWidthSize } from './gameGlobals';
 
 init();
 initKeys();
-
-const submarineSprite = new Image();
-submarineSprite.src = '../sprites/submarine.png';
-
-const gameScale = 5;
-const blockSize = 16;
-const levelWidthSize = 12;
-const levelHeightSize = 12;
-const worldWidthSize = 12;
-const worldHeightSize = 12;
-const entryPoint = { x: 5, y: 6 };
 
 const world = [
   [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1],
@@ -29,29 +19,6 @@ const world = [
   [1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1]
 ];
 
-const oceanWorldSeed = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-];
-
-const submarine = Sprite({
-  x: blockSize * gameScale,
-  y: blockSize * gameScale,
-  color: 'red',
-  width: blockSize * gameScale,
-  height: blockSize * gameScale
-});
-
 const wallFactory = (x: number, y: number, scale = 1) =>
   Sprite({
     x: x * scale,
@@ -61,6 +28,14 @@ const wallFactory = (x: number, y: number, scale = 1) =>
     height: blockSize * scale,
     collitionIdx: `wall_${x}_${y}`
   });
+
+const submarine = Sprite({
+  x: blockSize * gameScale,
+  y: blockSize * gameScale,
+  color: 'red',
+  width: blockSize * gameScale,
+  height: blockSize * gameScale
+});
 
 const text = Text({
   text: 'Underwater Escape',
