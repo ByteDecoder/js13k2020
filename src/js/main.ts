@@ -1,6 +1,4 @@
-import menuScene from './scenes/menuScene';
-
-const gameMenu = menuScene.create();
+import Game from './game';
 
 const enum GameStates {
   GameMenu = 0,
@@ -20,4 +18,4 @@ class StateMachine {
   };
 }
 
-gameMenu.start();
+Game.instace.run();
