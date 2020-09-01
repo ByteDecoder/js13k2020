@@ -7,7 +7,7 @@ initKeys();
 
 const gameTitle = createLgText('404 Dark Room', { x: 400, y: 200 });
 
-const gameSubtitle = createMdText('Find the 404 undewater room before time ends', {
+const gameSubtitle = createMdText('An underwater adventure', {
   x: 400,
   y: 300
 });

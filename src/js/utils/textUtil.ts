@@ -8,8 +8,7 @@ export interface Position {
 export const createText = (text: string, { x, y }: Position, fontSize: number): Text =>
   Text({
     text,
-    size: fontSize,
-    family: 'monospace',
+    font: `${fontSize}px Courier New`,
     color: 'white',
     x,
     y,
