@@ -23,7 +23,7 @@ const submarine = Submarine.create();
 
 const props = [submarine, ...levelMapSprites];
 
-const update = () => {
+function update() {
   // levelScene.lookAt(submarine);
 
   if (keyPressed('esc')) {
@@ -60,8 +60,12 @@ const update = () => {
       submarine.x -= 2;
     }
   }
-};
+}
 
-const createMissionScene = (): IGameScene => createScene({ update, props });
+/**
+ * Create the playing level scene.
+ */
+const createMissionScene = (): IGameScene =>
+  createScene({ update, props, cameraLookTarget: submarine });
 
 export default createMissionScene;

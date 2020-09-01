@@ -9,12 +9,14 @@ export interface IGameScene {
 }
 
 export interface SceneOptions {
+  cameraLookTarget?: GameObject;
   update?(dt: number): void;
   render?(): void;
   props?: GameObject[];
 }
 
 export const createScene = ({
+  cameraLookTarget = null,
   update = () => {},
   render = () => {},
   props = []
@@ -25,7 +27,12 @@ export const createScene = ({
   });
 
   const loop = GameLoop({
-    update: (dt) => update(dt),
+    update: (dt) => {
+      if (cameraLookTarget) {
+        scene.lookAt(cameraLookTarget);
+      }
+      update(dt);
+    },
     render: () => {
       scene.render();
       render();
