@@ -60,6 +60,6 @@ const update = () => {
   }
 };
 
-const create = (): IGameScene => createScene({ update, props });
+const createMissionScene = (): IGameScene => createScene({ update, props });
 
-export default { create };
+export default createMissionScene;
