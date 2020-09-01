@@ -47,9 +47,6 @@ const update = () => {
 
   if (keyPressed('right')) {
     positionX = Math.ceil((submarine.x + 2) / gameScale / blockSize);
-    console.log(
-      `positionX = ${positionX}, worldFullMap[positionY][positionX] = ${worldFullMap[positionY][positionX]}`
-    );
     if (worldFullMap[positionY][positionX] === 0) {
       submarine.x += 2;
     }
@@ -57,9 +54,6 @@ const update = () => {
 
   if (keyPressed('left')) {
     positionX = Math.ceil((submarine.x - gameScale * blockSize - 2) / gameScale / blockSize);
-    console.log(
-      `positionX = ${positionX}, worldFullMap[positionY][positionX] = ${worldFullMap[positionY][positionX]}`
-    );
     if (worldFullMap[positionY][positionX] === 0) {
       submarine.x -= 2;
     }

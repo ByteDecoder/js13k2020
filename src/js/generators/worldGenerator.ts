@@ -88,7 +88,6 @@ const create = (): number[][] => {
     });
   } while (pendingRooms.length !== 0);
 
-  console.log(newWorld);
   return newWorld;
 };
 

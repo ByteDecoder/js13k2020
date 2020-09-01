@@ -18,4 +18,4 @@ class StateMachine {
   };
 }
 
-Game.instace.run();
+Game.getInstance().run();
