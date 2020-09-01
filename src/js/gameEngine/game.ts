@@ -21,8 +21,6 @@ export default class Game {
 
   private menuScene = createMenuScene();
 
-  private missionScene = createMissionScene();
-
   private constructor() {
     this.stateMachine = new GameStateMachine();
   }
@@ -58,7 +56,7 @@ export default class Game {
         this.currentGameScene = this.menuScene;
         break;
       case GameStates.PlayingGame:
-        this.currentGameScene = this.missionScene;
+        this.currentGameScene = createMissionScene();
         break;
       case GameStates.GameOver:
         this.currentGameScene = this.menuScene;
