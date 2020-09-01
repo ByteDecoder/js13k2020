@@ -5,18 +5,15 @@ import { worldHeightSize, worldWidthSize } from './worldGenerator';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
 
 /**
- * Detailed level world map with sprite walls.
- */
-const worldFullMap = Array(entryRoom.height * worldHeightSize)
-  .fill(0)
-  .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
-
-/**
  * Creates full detaisled map with props sprites
  * @param worldMap
  */
 const create = (worldMap: number[][]): { levelMapSprites: Sprite[]; worldFullMap: number[][] } => {
   const level = [];
+  const worldFullMap = Array(entryRoom.height * worldHeightSize)
+    .fill(0)
+    .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
+
   for (let y = 0; y < worldHeightSize; y += 1) {
     for (let x = 0; x < worldWidthSize; x += 1) {
       if (worldMap[y][x] !== 0) {

@@ -10,13 +10,6 @@ export const worldHeightSize = 15;
 export const entryPoint = { x: 5, y: 5 };
 
 /**
- * Base ocean world template
- */
-const oceanWorld = Array(worldHeightSize)
-  .fill(0)
-  .map(() => Array(worldWidthSize).fill(0));
-
-/**
  * Defines a room spawn point data structure.
  */
 interface IRoomSpawnPoint {
@@ -41,7 +34,10 @@ const pendingRooms: IRoomSpawnPoint[] = [];
  * Creates a new random worldmap for the game session with rooms.
  */
 const create = (): number[][] => {
-  const newWorld = [...oceanWorld];
+  const newWorld = Array(worldHeightSize)
+    .fill(0)
+    .map(() => Array(worldWidthSize).fill(0));
+
   newWorld[entryPoint.y][entryPoint.x] = entryRoom.roomTileNumber;
 
   pendingRooms.push(createRoomSpwanPoint(entryPoint.x, entryPoint.y - 1, 1));

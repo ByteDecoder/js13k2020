@@ -25,8 +25,12 @@ const createMissionScene = (): IGameScene => {
    */
   const submarine = Submarine.create();
 
-  function update() {
+  // eslint-disable-next-line no-console
+  console.log(worldMap);
+  // eslint-disable-next-line no-console
+  console.log(worldFullMap);
 
+  function update() {
     if (keyPressed('esc')) {
       Game.getInstance().stopPlaying();
     }
