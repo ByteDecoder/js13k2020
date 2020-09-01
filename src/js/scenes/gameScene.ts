@@ -1,4 +1,7 @@
-import { Scene, GameLoop, GameObject } from 'kontra';
+import { Scene, GameLoop, GameObject, init, initKeys } from 'kontra';
+
+init();
+initKeys();
 
 export interface IGameScene {
   start(): void;

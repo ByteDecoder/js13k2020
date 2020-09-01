@@ -1,9 +1,7 @@
-import { keyPressed, init, initKeys } from 'kontra';
+import { keyPressed } from 'kontra';
 import { createScene, IGameScene } from './gameScene';
 import { createSmText, createMdText, createLgText } from '../utils/textUtil';
-
-init();
-initKeys();
+import Game from '../gameEngine/game';
 
 const gameTitle = createLgText('404 Dark Room', { x: 400, y: 200 });
 
@@ -18,8 +16,7 @@ const props = [gameTitle, gameSubtitle, gameAction];
 
 const update = () => {
   if (keyPressed('enter')) {
-    const a = 1 + 1;
-    console.log('key enter pressed.');
+    Game.getInstance().playGame();
   }
 };
 

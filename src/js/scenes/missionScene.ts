@@ -1,12 +1,10 @@
-import { keyPressed, init, initKeys } from 'kontra';
+import { keyPressed } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
 import levelMapGenerator from '../generators/levelMapGenerator';
 import Submarine from '../submarine';
 import { createScene, IGameScene } from './gameScene';
 import { gameScale, blockSize } from '../gameGlobals';
-
-init();
-initKeys();
+import Game from '../gameEngine/game';
 
 /**
  * Random generated world map.
@@ -27,6 +25,10 @@ const props = [submarine, ...levelMapSprites];
 
 const update = () => {
   // levelScene.lookAt(submarine);
+
+  if (keyPressed('esc')) {
+    Game.getInstance().stopPlaying();
+  }
 
   let positionX = Math.ceil(submarine.x / gameScale / blockSize);
   let positionY = Math.ceil(submarine.y / gameScale / blockSize);

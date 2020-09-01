@@ -19,8 +19,11 @@ export default class Game {
    */
   public stateMachine: GameStateMachine;
 
+  private menuScene = createMenuScene();
+
+  private missionScene = createMissionScene();
+
   private constructor() {
-    this.currentGameScene = createMenuScene();
     this.stateMachine = new GameStateMachine();
   }
 
@@ -33,21 +36,35 @@ export default class Game {
   }
 
   start(): void {
+    this.loadGameScene();
     this.currentGameScene.start();
   }
 
-  private executeScene(): void {
+  public playGame(): void {
+    this.currentGameScene.stop();
+    this.stateMachine.transitionToPlayGame();
+    this.start();
+  }
+
+  public stopPlaying(): void {
+    this.currentGameScene.stop();
+    this.stateMachine.transitionToGameMenu();
+    this.start();
+  }
+
+  private loadGameScene(): void {
     switch (this.stateMachine.getCurrentState()) {
       case GameStates.GameMenu:
-        this.currentGameScene = createMenuScene();
+        this.currentGameScene = this.menuScene;
         break;
       case GameStates.PlayingGame:
-        this.currentGameScene = createMissionScene();
+        this.currentGameScene = this.missionScene;
         break;
       case GameStates.GameOver:
-        this.currentGameScene = createMenuScene();
+        this.currentGameScene = this.menuScene;
         break;
       default:
+        this.currentGameScene = this.menuScene;
         break;
     }
   }

@@ -16,9 +16,15 @@ export default class GameStateMachine {
     return this.currentState;
   }
 
-  playGame(): void {
+  transitionToPlayGame(): void {
     if (this.currentState === GameStates.GameMenu) {
       this.currentState = GameStates.PlayingGame;
+    }
+  }
+
+  transitionToGameMenu(): void {
+    if (this.currentState === GameStates.PlayingGame) {
+      this.currentState = GameStates.GameMenu;
     }
   }
 }
