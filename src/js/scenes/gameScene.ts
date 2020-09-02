@@ -18,7 +18,9 @@ export interface SceneOptions {
 
 export const createScene = ({
   cameraLookTarget = null,
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   update = () => {},
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   render = () => {},
   props = [],
   messages = []

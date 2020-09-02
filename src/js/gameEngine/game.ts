@@ -33,17 +33,26 @@ export default class Game {
     return Game.instance;
   }
 
+  /**
+   * Start the game.
+   */
   start(): void {
     this.loadGameScene();
     this.currentGameScene.start();
   }
 
+  /**
+   * Move to the play state.
+   */
   public playGame(): void {
     this.currentGameScene.stop();
     this.stateMachine.transitionToPlayGame();
     this.start();
   }
 
+  /**
+   * Return from game scene to menu scene.
+   */
   public stopPlaying(): void {
     this.currentGameScene.stop();
     this.stateMachine.transitionToGameMenu();
