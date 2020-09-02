@@ -1,6 +1,6 @@
 import { Sprite } from 'kontra';
 import { gameScale, blockSize } from '../gameGlobals';
-import wall from '../wall';
+import createWall from '../prefabs/wall';
 import { worldHeightSize, worldWidthSize } from './worldGenerator';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
 
@@ -39,7 +39,7 @@ const create = (worldMap: number[][]): { levelMapSprites: Sprite[]; worldFullMap
             if (worldFullMap[yLevelMap][xLevelMap] === 1) {
               const baseX = xLevelMap * blockSize;
               const baseY = yLevelMap * blockSize;
-              const wallSprite = wall.wallFactory(baseX, baseY, gameScale);
+              const wallSprite = createWall(baseX, baseY, gameScale);
               level.push(wallSprite);
             }
           }
