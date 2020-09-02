@@ -6,7 +6,7 @@ import { createScene, IGameScene } from './gameScene';
 import { gameScale, blockSize } from '../gameGlobals';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
-import { prefabPosition, tileIsWalkable } from '../gameEngine/locationMap';
+import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
 
 /**
  * Create the playing level scene.
@@ -90,7 +90,7 @@ const createMissionScene = (): IGameScene => {
     }
 
     // Mapping player postion for the collision layer.
-    let { x, y } = prefabPosition(submarine);
+    let { x, y } = prefabTilePosition(submarine);
 
     if (keyPressed('up')) {
       x = Math.ceil((submarine.y - gameScale * blockSize - 2) / gameScale / blockSize);

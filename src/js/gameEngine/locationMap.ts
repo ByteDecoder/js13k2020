@@ -13,7 +13,7 @@ export interface Position {
  * Map the player postion in a grid world scale.
  * @param prefab sprite to be mapped
  */
-export const prefabPosition = (prefab: Sprite): Position => {
+export const prefabTilePosition = (prefab: Sprite): Position => {
   const x = Math.ceil(prefab.x / gameScale / blockSize);
   const y = Math.ceil(prefab.y / gameScale / blockSize);
 
