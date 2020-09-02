@@ -2,6 +2,7 @@ import createMenuScene from '../scenes/menuScene';
 import { IGameScene } from '../scenes/gameScene';
 import GameStateMachine, { GameStates } from './gameStateMachine';
 import createMissionScene from '../scenes/missionScene';
+import createGameOverScene from '../scenes/gameOverScene';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -19,8 +20,6 @@ export default class Game {
    */
   public stateMachine: GameStateMachine;
 
-  private menuScene = createMenuScene();
-
   private constructor() {
     this.stateMachine = new GameStateMachine();
   }
@@ -34,7 +33,7 @@ export default class Game {
   }
 
   /**
-   * Start the game.
+   * Load and plays the current scene based on the game FSM.
    */
   start(): void {
     this.loadGameScene();
@@ -53,25 +52,31 @@ export default class Game {
   /**
    * Return from game scene to menu scene.
    */
-  public stopPlaying(): void {
+  public gameMenu(): void {
     this.currentGameScene.stop();
     this.stateMachine.transitionToGameMenu();
+    this.start();
+  }
+
+  public gameOver(): void {
+    this.currentGameScene.stop();
+    this.stateMachine.transitionToGameOver();
     this.start();
   }
 
   private loadGameScene(): void {
     switch (this.stateMachine.getCurrentState()) {
       case GameStates.GameMenu:
-        this.currentGameScene = this.menuScene;
+        this.currentGameScene = createMenuScene();
         break;
       case GameStates.PlayingGame:
         this.currentGameScene = createMissionScene();
         break;
       case GameStates.GameOver:
-        this.currentGameScene = this.menuScene;
+        this.currentGameScene = createGameOverScene();
         break;
       default:
-        this.currentGameScene = this.menuScene;
+        this.currentGameScene = createMenuScene();
         break;
     }
   }

@@ -23,8 +23,14 @@ export default class GameStateMachine {
   }
 
   transitionToGameMenu(): void {
-    if (this.currentState === GameStates.PlayingGame) {
+    if (this.currentState === GameStates.PlayingGame || this.currentState === GameStates.GameOver) {
       this.currentState = GameStates.GameMenu;
+    }
+  }
+
+  transitionToGameOver(): void {
+    if (this.currentState === GameStates.PlayingGame) {
+      this.currentState = GameStates.GameOver;
     }
   }
 }
