@@ -1,9 +1,33 @@
-import { IRoomStruct } from './IRoomStruct';
+/**
+ * Defines a Room metadata structure.
+ */
+export interface RoomStruct {
+  /**
+   * Room available doors.
+   */
+  roomDirections: number[];
+  /**
+   * Room tile number.
+   */
+  roomTileNumber: number;
+  /**
+   * Room width.
+   */
+  width: number;
+  /**
+   * Room height.
+   */
+  height: number;
+  /**
+   * Door tilemap.
+   */
+  map: number[][];
+}
 
 /**
  * Entry room.
  */
-export const entryRoom: IRoomStruct = {
+export const entryRoom: RoomStruct = {
   roomDirections: [1, 2, 3, 4],
   roomTileNumber: 10,
   width: 12,
@@ -27,7 +51,7 @@ export const entryRoom: IRoomStruct = {
 /**
  * Bottom door room.
  */
-const bRoom: IRoomStruct = {
+const bRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 11,
   width: 12,
@@ -51,7 +75,7 @@ const bRoom: IRoomStruct = {
 /**
  * Left door room.
  */
-const lRoom: IRoomStruct = {
+const lRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 12,
   width: 12,
@@ -75,7 +99,7 @@ const lRoom: IRoomStruct = {
 /**
  * Left, Right door room.
  */
-const lrRoom: IRoomStruct = {
+const lrRoom: RoomStruct = {
   roomDirections: [2, 4],
   roomTileNumber: 13,
   width: 12,
@@ -99,7 +123,7 @@ const lrRoom: IRoomStruct = {
 /**
  * Right door room.
  */
-const rRoom: IRoomStruct = {
+const rRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 14,
   width: 12,
@@ -123,7 +147,7 @@ const rRoom: IRoomStruct = {
 /**
  * Bottom, Right door room.
  */
-const brRoom: IRoomStruct = {
+const brRoom: RoomStruct = {
   roomDirections: [2, 3],
   roomTileNumber: 15,
   width: 12,
@@ -147,7 +171,7 @@ const brRoom: IRoomStruct = {
 /**
  * Top door room.
  */
-const tRoom: IRoomStruct = {
+const tRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 16,
   width: 12,
@@ -171,7 +195,7 @@ const tRoom: IRoomStruct = {
 /**
  * Top, Bottom door room.
  */
-const tbRoom: IRoomStruct = {
+const tbRoom: RoomStruct = {
   roomDirections: [1, 3],
   roomTileNumber: 17,
   width: 12,
@@ -195,7 +219,7 @@ const tbRoom: IRoomStruct = {
 /**
  * Left, Right door room.
  */
-const ltRoom: IRoomStruct = {
+const ltRoom: RoomStruct = {
   roomDirections: [1, 4],
   roomTileNumber: 18,
   width: 12,
@@ -219,7 +243,7 @@ const ltRoom: IRoomStruct = {
 /**
  * Top, Right door room.
  */
-const trRoom: IRoomStruct = {
+const trRoom: RoomStruct = {
   roomDirections: [1, 2],
   roomTileNumber: 19,
   width: 12,
@@ -244,7 +268,7 @@ const trRoom: IRoomStruct = {
  * Initialize Room dictionary container.
  */
 const initializateRoomContainer = () => {
-  const container = new Map<number, IRoomStruct>();
+  const container = new Map<number, RoomStruct>();
   container.set(entryRoom.roomTileNumber, entryRoom);
   container.set(bRoom.roomTileNumber, bRoom);
   container.set(lRoom.roomTileNumber, lRoom);

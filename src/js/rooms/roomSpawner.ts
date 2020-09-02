@@ -1,6 +1,6 @@
 import roomTemplates from './roomTemplates';
-import { IRoomStruct } from './IRoomStruct';
 import getRandomInt from '../lib/mathUtils';
+import { RoomStruct } from './roomTypes';
 
 /**
  * Generate the next room based on the direction provided.
@@ -11,7 +11,7 @@ import getRandomInt from '../lib/mathUtils';
  * 3 -> need top door
  * 4 -> need right door
  */
-const spawn = (openingDirection: number): IRoomStruct => {
+const spawn = (openingDirection: number): RoomStruct => {
   let randomRoom = 0;
   let nextRoom = null;
 
