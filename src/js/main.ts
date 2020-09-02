@@ -1,5 +1,5 @@
 import Game from './gameEngine/game';
-import './vendors/jsfxr';
+/* import './vendors/jsfxr';
 
 declare global {
   interface Window {
@@ -13,10 +13,10 @@ const sounds = {
   save: [0, 0, 0.06, 0.4, 0.5, 0.4, 0, 0.43, 0, 0, 0, 0, 0, 0.2, 0, 0.5, 0, 0, 1, 0, 0, 0, 0, 0.5],
   death: [0, 0, 0.3, 0.4, 0.3, 0.4, 0, -0.4, 0, 0, 0, 0, 0, 0.3, 0, 0.4, 0, 0, 1, 0, 0, 0, 0, 0.5],
   win: [0, 0, 0.09, 0, 0.4, 0.6, 0, 0, 0, 0, 0, 0.65, 0.5, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0.5]
-};
+}; */
 
 document.addEventListener('DOMContentLoaded', function () {
-  const sound = window.jsfxr(sounds.jump);
+  /*   const sound = window.jsfxr(sounds.jump);
   const audioPlayer = new Audio();
   audioPlayer.src = sound;
   audioPlayer.autoplay = true;
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // eslint-disable-next-line no-console
       console.error(error);
     });
-  }
+  } */
   /**
    * Game execution entry point.
    */

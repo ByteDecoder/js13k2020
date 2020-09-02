@@ -5,6 +5,35 @@ import { worldHeightSize, worldWidthSize } from './worldGenerator';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
 import getRandomInt from '../lib/mathUtils';
 import createTimer from '../prefabs/timer';
+import createCard from '../prefabs/card';
+
+export interface MapGeneratorOptions {
+  /**
+   * Max timer collectibles per room.
+   */
+  maxTimersPerRoom: number;
+  /**
+   * Chance tp get a timer collectible in a room.
+   * 200: scarce
+   */
+  timerProbability: number;
+  /**
+   * Max cards per level.
+   */
+  maxCardsPerLevel: number;
+  /**
+   * Chance tp get a timer collectible in a room.
+   * 200: scarce
+   */
+  cardProbability: number;
+}
+
+export interface MapGeneratorOutput {
+  levelMapSprites: Sprite[];
+  worldFullMap: number[][];
+  timerCollectibles: Sprite[];
+  cardsCollectibles: Sprite[];
+}
 
 /**
  * Creates full detaisled map with props sprites
@@ -15,14 +44,17 @@ import createTimer from '../prefabs/timer';
  */
 const create = (
   worldMap: number[][],
-  maxTimersPerRoom: number,
-  timerProbability: number
-): { levelMapSprites: Sprite[]; worldFullMap: number[][]; timerCollectibles: Sprite[] } => {
+  mapGeneratorOptions: MapGeneratorOptions
+): MapGeneratorOutput => {
   const levelMapSprites = [];
   const timerCollectibles = [];
+  const cardsCollectibles = [];
+
   const worldFullMap = Array(entryRoom.height * worldHeightSize)
     .fill(0)
     .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
+
+  let totalCards = 0;
 
   for (let y = 0; y < worldHeightSize; y += 1) {
     for (let x = 0; x < worldWidthSize; x += 1) {
@@ -47,19 +79,28 @@ const create = (
         let totalTimers = 0;
         for (let yLevelMap = startingRow; yLevelMap < endingRow; yLevelMap += 1) {
           for (let xLevelMap = startingCol; xLevelMap < endingCol; xLevelMap += 1) {
+            const baseX = xLevelMap * blockSize;
+            const baseY = yLevelMap * blockSize;
+
             if (worldFullMap[yLevelMap][xLevelMap] === 1) {
-              const baseX = xLevelMap * blockSize;
-              const baseY = yLevelMap * blockSize;
               const wall = createWall(baseX, baseY);
               levelMapSprites.push(wall);
-            } else if (totalTimers < maxTimersPerRoom) {
-              const chanceTimerCollectible = getRandomInt(0, timerProbability);
-              if (chanceTimerCollectible === 5) {
-                const baseX = xLevelMap * blockSize;
-                const baseY = yLevelMap * blockSize;
-                const timer = createTimer(baseX, baseY);
-                totalTimers += 1;
-                timerCollectibles.push(timer);
+            } else {
+              if (totalTimers < mapGeneratorOptions.maxTimersPerRoom) {
+                const chanceCollectible = getRandomInt(0, mapGeneratorOptions.timerProbability);
+                if (chanceCollectible === 5) {
+                  const timer = createTimer(baseX, baseY);
+                  totalTimers += 1;
+                  timerCollectibles.push(timer);
+                }
+              }
+              if (totalCards < mapGeneratorOptions.maxCardsPerLevel) {
+                const chanceCollectible = getRandomInt(0, mapGeneratorOptions.cardProbability);
+                if (chanceCollectible === 10) {
+                  const card = createCard(baseX, baseY);
+                  totalCards += 1;
+                  cardsCollectibles.push(card);
+                }
               }
             }
           }
@@ -67,7 +108,7 @@ const create = (
       }
     }
   }
-  return { levelMapSprites, worldFullMap, timerCollectibles };
+  return { levelMapSprites, worldFullMap, timerCollectibles, cardsCollectibles };
 };
 
 export default { create };

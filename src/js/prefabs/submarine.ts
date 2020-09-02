@@ -10,7 +10,7 @@ export const createSubmarine = (): Sprite => {
   return Sprite({
     x: entryPoint.x * entryRoom.width * blockSize * gameScale + 128,
     y: entryPoint.y * entryRoom.height * blockSize * gameScale + 128,
-    color: 'red',
+    color: 'white',
     width: blockSize * gameScale,
     height: blockSize * gameScale
   });

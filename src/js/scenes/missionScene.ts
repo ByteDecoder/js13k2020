@@ -1,6 +1,6 @@
 import { keyPressed } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
-import levelMapGenerator from '../generators/levelMapGenerator';
+import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
 import createSubmarine from '../prefabs/submarine';
 import { createScene, IGameScene } from './gameScene';
 import { gameScale, blockSize } from '../gameGlobals';
@@ -20,15 +20,6 @@ const createMissionScene = (): IGameScene => {
    * Number of secords being passed to reduce player time.
    */
   const playerTimeRateConsumption = 1;
-  /**
-   * Max timer collectibles per room.
-   */
-  const maxTimersPerRoom = 3;
-  /**
-   * Chance tp get a timer collectible in a room.
-   * 200: scarce
-   */
-  const timerProbability = 150;
 
   /**
    * Random generated world map.
@@ -36,13 +27,24 @@ const createMissionScene = (): IGameScene => {
   const worldMap = worldGenerator.create();
 
   /**
+   * Maop generation options.
+   */
+  const mapOptions: MapGeneratorOptions = {
+    maxTimersPerRoom: 3,
+    timerProbability: 150,
+    maxCardsPerLevel: 6,
+    cardProbability: 300
+  };
+
+  /**
    * LevelMapSprites and worldFullMap
    */
-  const { levelMapSprites, worldFullMap, timerCollectibles } = levelMapGenerator.create(
-    worldMap,
-    maxTimersPerRoom,
-    timerProbability
-  );
+  const {
+    levelMapSprites,
+    worldFullMap,
+    timerCollectibles,
+    cardsCollectibles
+  } = levelMapGenerator.create(worldMap, mapOptions);
 
   /**
    * Submarine player
@@ -54,10 +56,17 @@ const createMissionScene = (): IGameScene => {
   // eslint-disable-next-line no-console
   // console.log(worldFullMap);
 
+  let deltaTime = 0;
+  const collectedCards = 0;
+
   const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
-
-  let deltaTime = 0;
+  const cardsProgressText = createText(
+    `Cards collected: ${collectedCards} / ${cardsCollectibles.length}`,
+    { x: 600, y: 570 },
+    24,
+    'right'
+  );
 
   function update(dt: number) {
     deltaTime += dt;
@@ -110,9 +119,9 @@ const createMissionScene = (): IGameScene => {
 
   return createScene({
     update,
-    props: [submarine, ...levelMapSprites, ...timerCollectibles],
+    props: [submarine, ...levelMapSprites, ...timerCollectibles, ...cardsCollectibles],
     cameraLookTarget: submarine,
-    messages: [timerText, missionText]
+    messages: [timerText, missionText, cardsProgressText]
   });
 };
 
