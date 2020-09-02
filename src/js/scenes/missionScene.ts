@@ -33,7 +33,9 @@ const createMissionScene = (): IGameScene => {
     maxTimersPerRoom: 3,
     timerProbability: 150,
     maxCardsPerLevel: 6,
-    cardProbability: 300
+    cardProbability: 300,
+    maxMinesPerRoom: 10,
+    mineProbability: 70
   };
 
   /**
@@ -43,7 +45,8 @@ const createMissionScene = (): IGameScene => {
     levelMapSprites,
     worldFullMap,
     timerCollectibles,
-    cardsCollectibles
+    cardsCollectibles,
+    minesEnemies
   } = levelMapGenerator.create(worldMap, mapOptions);
 
   /**
@@ -119,7 +122,13 @@ const createMissionScene = (): IGameScene => {
 
   return createScene({
     update,
-    props: [submarine, ...levelMapSprites, ...timerCollectibles, ...cardsCollectibles],
+    props: [
+      submarine,
+      ...levelMapSprites,
+      ...timerCollectibles,
+      ...cardsCollectibles,
+      ...minesEnemies
+    ],
     cameraLookTarget: submarine,
     messages: [timerText, missionText, cardsProgressText]
   });

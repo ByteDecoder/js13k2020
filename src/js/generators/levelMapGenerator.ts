@@ -6,6 +6,7 @@ import { roomContainer, entryRoom } from '../rooms/roomTypes';
 import getRandomInt from '../lib/mathUtils';
 import createTimer from '../prefabs/timer';
 import createCard from '../prefabs/card';
+import createMine from '../prefabs/mine';
 
 export interface MapGeneratorOptions {
   /**
@@ -13,7 +14,7 @@ export interface MapGeneratorOptions {
    */
   maxTimersPerRoom: number;
   /**
-   * Chance tp get a timer collectible in a room.
+   * Chance to get a timer collectible in a room.
    * 200: scarce
    */
   timerProbability: number;
@@ -22,10 +23,17 @@ export interface MapGeneratorOptions {
    */
   maxCardsPerLevel: number;
   /**
-   * Chance tp get a timer collectible in a room.
-   * 200: scarce
+   * Chance to get a card collectible in a room.
    */
   cardProbability: number;
+  /**
+   * Max number of mines per room.
+   */
+  maxMinesPerRoom: number;
+  /**
+   * Chance to get a mine enemy in a room.
+   */
+  mineProbability: number;
 }
 
 export interface MapGeneratorOutput {
@@ -33,6 +41,7 @@ export interface MapGeneratorOutput {
   worldFullMap: number[][];
   timerCollectibles: Sprite[];
   cardsCollectibles: Sprite[];
+  minesEnemies: Sprite[];
 }
 
 /**
@@ -49,6 +58,7 @@ const create = (
   const levelMapSprites = [];
   const timerCollectibles = [];
   const cardsCollectibles = [];
+  const minesEnemies = [];
 
   const worldFullMap = Array(entryRoom.height * worldHeightSize)
     .fill(0)
@@ -77,6 +87,8 @@ const create = (
 
         // Creating wall sprites according worldFullMap tileset.
         let totalTimers = 0;
+        let totalMines = 0;
+
         for (let yLevelMap = startingRow; yLevelMap < endingRow; yLevelMap += 1) {
           for (let xLevelMap = startingCol; xLevelMap < endingCol; xLevelMap += 1) {
             const baseX = xLevelMap * blockSize;
@@ -86,20 +98,37 @@ const create = (
               const wall = createWall(baseX, baseY);
               levelMapSprites.push(wall);
             } else {
-              if (totalTimers < mapGeneratorOptions.maxTimersPerRoom) {
+              // If Position is used by game item, cannot render other in the same position.
+              let pointUsed = false;
+
+              // Create timers collectibles.
+              if (totalTimers < mapGeneratorOptions.maxTimersPerRoom && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.timerProbability);
                 if (chanceCollectible === 5) {
                   const timer = createTimer(baseX, baseY);
                   totalTimers += 1;
+                  pointUsed = true;
                   timerCollectibles.push(timer);
                 }
               }
-              if (totalCards < mapGeneratorOptions.maxCardsPerLevel) {
+
+              // Create 404 cards collectibles.
+              if (totalCards < mapGeneratorOptions.maxCardsPerLevel && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.cardProbability);
                 if (chanceCollectible === 10) {
                   const card = createCard(baseX, baseY);
                   totalCards += 1;
                   cardsCollectibles.push(card);
+                }
+              }
+
+              // Create mines enemies.
+              if (totalMines < mapGeneratorOptions.maxMinesPerRoom && !pointUsed) {
+                const chanceCollectible = getRandomInt(0, mapGeneratorOptions.mineProbability);
+                if (chanceCollectible === 5) {
+                  const mine = createMine(baseX, baseY);
+                  totalMines += 1;
+                  minesEnemies.push(mine);
                 }
               }
             }
@@ -108,7 +137,7 @@ const create = (
       }
     }
   }
-  return { levelMapSprites, worldFullMap, timerCollectibles, cardsCollectibles };
+  return { levelMapSprites, worldFullMap, timerCollectibles, cardsCollectibles, minesEnemies };
 };
 
 export default { create };
