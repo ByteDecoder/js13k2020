@@ -5,7 +5,12 @@ export interface Position {
   y: number;
 }
 
-export const createText = (text: string, { x, y }: Position, fontSize: number): Text =>
+export const createText = (
+  text: string,
+  { x, y }: Position,
+  fontSize: number,
+  textAlign = 'center'
+): Text =>
   Text({
     text,
     font: `${fontSize}px Courier New`,
@@ -13,14 +18,14 @@ export const createText = (text: string, { x, y }: Position, fontSize: number): 
     x,
     y,
     anchor: { x: 0.5, y: 0.5 },
-    textAlign: 'center'
+    textAlign
   });
 
-export const createSmText = (text: string, { x, y }: Position): Text =>
-  createText(text, { x, y }, 24);
+export const createSmText = (text: string, { x, y }: Position, textAlign = 'center'): Text =>
+  createText(text, { x, y }, 24, textAlign);
 
-export const createMdText = (text: string, { x, y }: Position): Text =>
-  createText(text, { x, y }, 32);
+export const createMdText = (text: string, { x, y }: Position, textAlign = 'center'): Text =>
+  createText(text, { x, y }, 32, textAlign);
 
-export const createLgText = (text: string, { x, y }: Position): Text =>
-  createText(text, { x, y }, 64);
+export const createLgText = (text: string, { x, y }: Position, textAlign = 'center'): Text =>
+  createText(text, { x, y }, 64, textAlign);

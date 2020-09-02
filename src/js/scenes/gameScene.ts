@@ -1,4 +1,4 @@
-import { Scene, GameLoop, GameObject, init, initKeys } from 'kontra';
+import { Scene, GameLoop, GameObject, init, initKeys, Text } from 'kontra';
 
 init();
 initKeys();
@@ -13,13 +13,15 @@ export interface SceneOptions {
   update?(dt: number): void;
   render?(): void;
   props?: GameObject[];
+  messages?: Text[];
 }
 
 export const createScene = ({
   cameraLookTarget = null,
   update = () => {},
   render = () => {},
-  props = []
+  props = [],
+  messages = []
 }: SceneOptions = {}): IGameScene => {
   const scene = Scene({
     id: 'scene',
@@ -36,6 +38,7 @@ export const createScene = ({
     render: () => {
       scene.render();
       render();
+      messages.forEach((message) => message.render());
     }
   });
 

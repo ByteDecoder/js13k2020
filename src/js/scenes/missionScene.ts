@@ -5,6 +5,7 @@ import Submarine from '../submarine';
 import { createScene, IGameScene } from './gameScene';
 import { gameScale, blockSize } from '../gameGlobals';
 import Game from '../gameEngine/game';
+import { createText } from '../utils/textUtil';
 
 /**
  * Create the playing level scene.
@@ -26,9 +27,14 @@ const createMissionScene = (): IGameScene => {
   const submarine = Submarine.create();
 
   // eslint-disable-next-line no-console
-  console.log(worldMap);
+  // console.log(worldMap);
   // eslint-disable-next-line no-console
-  console.log(worldFullMap);
+  // console.log(worldFullMap);
+
+  const time = 15;
+
+  const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
+  const timerText = createText(time.toString(), { x: 400, y: 50 }, 64);
 
   function update() {
     if (keyPressed('esc')) {
@@ -70,7 +76,8 @@ const createMissionScene = (): IGameScene => {
   return createScene({
     update,
     props: [submarine, ...levelMapSprites],
-    cameraLookTarget: submarine
+    cameraLookTarget: submarine,
+    messages: [timerText, missionText]
   });
 };
 
