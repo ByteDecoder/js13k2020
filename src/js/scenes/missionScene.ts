@@ -12,6 +12,25 @@ import { createText } from '../utils/textUtil';
  */
 const createMissionScene = (): IGameScene => {
   /**
+   * Starting player time.
+   */
+  let playerTime = 15;
+
+  /**
+   * Number of secords being passed to reduce player time.
+   */
+  const playerTimeRateConsumption = 1;
+  /**
+   * Max timer collectibles per room.
+   */
+  const maxTimersPerRoom = 3;
+  /**
+   * Chance tp get a timer collectible in a room.
+   * 200: scarce
+   */
+  const timerProbability = 150;
+
+  /**
    * Random generated world map.
    */
   const worldMap = worldGenerator.create();
@@ -19,7 +38,11 @@ const createMissionScene = (): IGameScene => {
   /**
    * LevelMapSprites and worldFullMap
    */
-  const { levelMapSprites, worldFullMap } = levelMapGenerator.create(worldMap);
+  const { levelMapSprites, worldFullMap, timerCollectibles } = levelMapGenerator.create(
+    worldMap,
+    maxTimersPerRoom,
+    timerProbability
+  );
 
   /**
    * Submarine player
@@ -30,16 +53,6 @@ const createMissionScene = (): IGameScene => {
   // console.log(worldMap);
   // eslint-disable-next-line no-console
   // console.log(worldFullMap);
-
-  /**
-   * Starting player time.
-   */
-  let playerTime = 15;
-
-  /**
-   * Number of secords being passed to reduce player time.
-   */
-  const playerTimeRateConsumption = 1;
 
   const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
@@ -97,7 +110,7 @@ const createMissionScene = (): IGameScene => {
 
   return createScene({
     update,
-    props: [submarine, ...levelMapSprites],
+    props: [submarine, ...levelMapSprites, ...timerCollectibles],
     cameraLookTarget: submarine,
     messages: [timerText, missionText]
   });

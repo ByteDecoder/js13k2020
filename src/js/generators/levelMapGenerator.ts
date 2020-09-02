@@ -1,15 +1,25 @@
 import { Sprite } from 'kontra';
-import { gameScale, blockSize } from '../gameGlobals';
+import { blockSize } from '../gameGlobals';
 import createWall from '../prefabs/wall';
 import { worldHeightSize, worldWidthSize } from './worldGenerator';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
+import getRandomInt from '../lib/mathUtils';
+import createTimer from '../prefabs/timer';
 
 /**
  * Creates full detaisled map with props sprites
+ *
  * @param worldMap
+ * @param maxTimersPerRoom
+ * @param timerProbability
  */
-const create = (worldMap: number[][]): { levelMapSprites: Sprite[]; worldFullMap: number[][] } => {
-  const level = [];
+const create = (
+  worldMap: number[][],
+  maxTimersPerRoom: number,
+  timerProbability: number
+): { levelMapSprites: Sprite[]; worldFullMap: number[][]; timerCollectibles: Sprite[] } => {
+  const levelMapSprites = [];
+  const timerCollectibles = [];
   const worldFullMap = Array(entryRoom.height * worldHeightSize)
     .fill(0)
     .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
@@ -34,20 +44,30 @@ const create = (worldMap: number[][]): { levelMapSprites: Sprite[]; worldFullMap
         }
 
         // Creating wall sprites according worldFullMap tileset.
+        let totalTimers = 0;
         for (let yLevelMap = startingRow; yLevelMap < endingRow; yLevelMap += 1) {
           for (let xLevelMap = startingCol; xLevelMap < endingCol; xLevelMap += 1) {
             if (worldFullMap[yLevelMap][xLevelMap] === 1) {
               const baseX = xLevelMap * blockSize;
               const baseY = yLevelMap * blockSize;
-              const wallSprite = createWall(baseX, baseY, gameScale);
-              level.push(wallSprite);
+              const wall = createWall(baseX, baseY);
+              levelMapSprites.push(wall);
+            } else if (totalTimers < maxTimersPerRoom) {
+              const chanceTimerCollectible = getRandomInt(0, timerProbability);
+              if (chanceTimerCollectible === 5) {
+                const baseX = xLevelMap * blockSize;
+                const baseY = yLevelMap * blockSize;
+                const timer = createTimer(baseX, baseY);
+                totalTimers += 1;
+                timerCollectibles.push(timer);
+              }
             }
           }
         }
       }
     }
   }
-  return { levelMapSprites: level, worldFullMap };
+  return { levelMapSprites, worldFullMap, timerCollectibles };
 };
 
 export default { create };
