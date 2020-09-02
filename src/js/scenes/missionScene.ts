@@ -6,6 +6,7 @@ import { createScene, IGameScene } from './gameScene';
 import { gameScale, blockSize } from '../gameGlobals';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
+import { prefabPosition, tileIsWalkable } from '../gameEngine/locationMap';
 
 /**
  * Create the playing level scene.
@@ -88,33 +89,33 @@ const createMissionScene = (): IGameScene => {
       Game.getInstance().gameMenu();
     }
 
-    let positionX = Math.ceil(submarine.x / gameScale / blockSize);
-    let positionY = Math.ceil(submarine.y / gameScale / blockSize);
+    // Mapping player postion for the collision layer.
+    let { x, y } = prefabPosition(submarine);
 
     if (keyPressed('up')) {
-      positionY = Math.ceil((submarine.y - gameScale * blockSize - 2) / gameScale / blockSize);
-      if (worldFullMap[positionY][positionX] === 0) {
+      x = Math.ceil((submarine.y - gameScale * blockSize - 2) / gameScale / blockSize);
+      if (tileIsWalkable({ x, y }, worldFullMap)) {
         submarine.y -= 2;
       }
     }
 
     if (keyPressed('down')) {
-      positionY = Math.ceil((submarine.y + 2) / gameScale / blockSize);
-      if (worldFullMap[positionY][positionX] === 0) {
+      y = Math.ceil((submarine.y + 2) / gameScale / blockSize);
+      if (tileIsWalkable({ x, y }, worldFullMap)) {
         submarine.y += 2;
       }
     }
 
     if (keyPressed('right')) {
-      positionX = Math.ceil((submarine.x + 2) / gameScale / blockSize);
-      if (worldFullMap[positionY][positionX] === 0) {
+      x = Math.ceil((submarine.x + 2) / gameScale / blockSize);
+      if (tileIsWalkable({ x, y }, worldFullMap)) {
         submarine.x += 2;
       }
     }
 
     if (keyPressed('left')) {
-      positionX = Math.ceil((submarine.x - gameScale * blockSize - 2) / gameScale / blockSize);
-      if (worldFullMap[positionY][positionX] === 0) {
+      x = Math.ceil((submarine.x - gameScale * blockSize - 2) / gameScale / blockSize);
+      if (tileIsWalkable({ x, y }, worldFullMap)) {
         submarine.x -= 2;
       }
     }

@@ -1,5 +1,6 @@
 import { entryRoom } from '../rooms/roomTypes';
 import roomSpawner from '../rooms/roomSpawner';
+import { Position } from '../gameEngine/locationMap';
 
 export const worldWidthSize = 15;
 export const worldHeightSize = 15;
@@ -7,7 +8,7 @@ export const worldHeightSize = 15;
 /**
  * Initial game entry point.
  */
-export const entryPoint = { x: 5, y: 5 };
+export const entryPoint: Position = { x: 5, y: 5 };
 
 /**
  * Defines a room spawn point data structure.

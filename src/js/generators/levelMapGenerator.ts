@@ -95,9 +95,10 @@ const create = (
             const baseY = yLevelMap * blockSize;
 
             if (worldFullMap[yLevelMap][xLevelMap] === 1) {
+              // Rendering a wall.
               const wall = createWall(baseX, baseY);
               levelMapSprites.push(wall);
-            } else {
+            } else if (roomData.roomTileNumber !== 10 && worldFullMap[yLevelMap][xLevelMap] === 0) {
               // If Position is used by game item, cannot render other in the same position.
               let pointUsed = false;
 
