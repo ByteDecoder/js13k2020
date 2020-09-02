@@ -2,7 +2,7 @@ import { Sprite } from 'kontra';
 import { blockSize, gameScale } from '../gameGlobals';
 
 /**
- * Creates a 404 Card prefab.
+ * Creates a Timer prefab.
  * @param x
  * @param y
  * @param scale
