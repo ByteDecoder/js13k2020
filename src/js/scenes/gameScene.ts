@@ -1,46 +1,69 @@
-import { Scene, GameLoop, GameObject, init, initKeys, Text } from 'kontra';
+import { Scene, GameLoop, GameObject, init, initKeys, Text, Sprite } from 'kontra';
 
 init();
 initKeys();
 
+/**
+ * External interaction with the scene.
+ */
 export interface IGameScene {
   start(): void;
   stop(): void;
 }
 
-export interface SceneOptions {
-  cameraLookTarget?: GameObject;
-  update?(dt: number): void;
-  render?(): void;
-  props?: GameObject[];
-  messages?: Text[];
+/**
+ * Define a set of sprite categories used in the scene.
+ */
+export interface SceneProps {
+  player?: Sprite;
+  walls?: Sprite[];
+  timers?: Sprite[];
+  cards?: Sprite[];
+  mines?: Sprite[];
+  backGroundOne?: Sprite;
 }
 
-export const createScene = ({
-  cameraLookTarget = null,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  update = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  render = () => {},
-  props = [],
-  messages = []
-}: SceneOptions = {}): IGameScene => {
+/**
+ * Defien the scene context.
+ */
+export interface SceneOptions {
+  cameraLookTarget?: GameObject;
+  sceneProps?: SceneProps;
+  messages?: Text[];
+  update?: (dt?: number, sceneProps?: SceneProps) => void;
+  render?: (sceneProps?: SceneProps) => void;
+}
+
+/**
+ *
+ * @param sceneOptions Set the scene context.
+ */
+export const createScene = (sceneOptions: SceneOptions): IGameScene => {
   const scene = Scene({
-    id: 'scene',
-    children: [...props]
+    id: 'scene'
   });
 
   const loop = GameLoop({
     update: (dt) => {
-      if (cameraLookTarget) {
-        scene.lookAt(cameraLookTarget);
+      if (sceneOptions.cameraLookTarget) {
+        console.log(sceneOptions.cameraLookTarget);
+        scene.lookAt(sceneOptions.cameraLookTarget);
       }
-      update(dt);
+      sceneOptions.update(dt, sceneOptions.sceneProps);
     },
     render: () => {
-      scene.render();
-      render();
-      messages.forEach((message) => message.render());
+      if (sceneOptions.render) {
+        sceneOptions.render(sceneOptions.sceneProps);
+      }
+      if (sceneOptions.sceneProps) {
+        console.log(sceneOptions.sceneProps.walls);
+        sceneOptions.sceneProps.walls.forEach((wall) => wall.render());
+      }
+      //sceneOptions.sceneProps.mines.forEach((mine) => mine.render());
+      //sceneOptions.sceneProps.cards.forEach((card) => card.render());
+      //sceneOptions.sceneProps.timers.forEach((timer) => timer.render());
+      //sceneOptions.sceneProps.player.render();
+      sceneOptions.messages.forEach((message) => message.render());
     }
   });
 

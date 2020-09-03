@@ -2,7 +2,7 @@ import { keyPressed } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
 import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
 import createSubmarine from '../prefabs/submarine';
-import { createScene, IGameScene } from './gameScene';
+import { createScene, IGameScene, SceneProps } from './gameScene';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
 import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
@@ -46,7 +46,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * LevelMapSprites and worldFullMap
    */
-  const {
+  let {
     levelMapSprites,
     worldFullMap,
     timerCollectibles,
@@ -76,7 +76,7 @@ const createMissionScene = (): IGameScene => {
     'right'
   );
 
-  function update(dt: number) {
+  function sceneUpdate(dt: number) {
     deltaTime += dt;
 
     if (deltaTime >= playerTimeRateConsumption) {
@@ -90,6 +90,11 @@ const createMissionScene = (): IGameScene => {
     }
 
     if (keyPressed('esc')) {
+      levelMapSprites = [];
+      worldFullMap = [];
+      timerCollectibles = [];
+      cardsCollectibles = [];
+      minesEnemies = [];
       Game.getInstance().gameMenu();
     }
 
@@ -122,16 +127,26 @@ const createMissionScene = (): IGameScene => {
   }
 
   return createScene({
-    update,
-    props: [
-      submarine,
-      ...levelMapSprites,
-      ...timerCollectibles,
-      ...cardsCollectibles,
-      ...minesEnemies
-    ],
     cameraLookTarget: submarine,
-    messages: [timerText, missionText, cardsProgressText]
+    sceneProps: {
+      player: submarine,
+      walls: levelMapSprites,
+      timers: timerCollectibles,
+      cards: cardsCollectibles,
+      mines: minesEnemies
+    },
+    messages: [timerText, missionText, cardsProgressText],
+    update(dt) {
+      sceneUpdate(dt);
+    },
+    render(sceneProps: SceneProps) {
+      console.log('render here');
+      sceneProps.walls.forEach((wall) => wall.render());
+      sceneProps.mines.forEach((mine) => mine.render());
+      sceneProps.cards.forEach((card) => card.render());
+      sceneProps.timers.forEach((timer) => timer.render());
+      sceneProps.player.render();
+    }
   });
 };
 

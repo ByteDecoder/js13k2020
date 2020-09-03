@@ -12,17 +12,17 @@ const gameSubtitle = createMdText('Your adventure ends here.', {
 
 const gameAction = createSmText('Press [x] to continue', { x: 400, y: 400 });
 
-const props = [gameTitle, gameSubtitle, gameAction];
-
-const update = () => {
-  if (keyPressed('x')) {
-    Game.getInstance().gameMenu();
-  }
-};
-
 /**
  * Creates the Game Menu Scene.
  */
-const createGameOverScene = (): IGameScene => createScene({ update, props });
+const createGameOverScene = (): IGameScene =>
+  createScene({
+    messages: [gameTitle, gameSubtitle, gameAction],
+    update() {
+      if (keyPressed('x')) {
+        Game.getInstance().gameMenu();
+      }
+    }
+  });
 
 export default createGameOverScene;
