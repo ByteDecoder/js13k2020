@@ -9,6 +9,7 @@ initKeys();
 export interface IGameScene {
   start(): void;
   stop(): void;
+  destroy(): void;
 }
 
 /**
@@ -46,17 +47,16 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
   const loop = GameLoop({
     update: (dt) => {
       if (sceneOptions.cameraLookTarget) {
-        console.log(sceneOptions.cameraLookTarget);
         scene.lookAt(sceneOptions.cameraLookTarget);
       }
       sceneOptions.update(dt, sceneOptions.sceneProps);
     },
     render: () => {
+      scene.render();
       if (sceneOptions.render) {
         sceneOptions.render(sceneOptions.sceneProps);
       }
       if (sceneOptions.sceneProps) {
-        console.log(sceneOptions.sceneProps.walls);
         sceneOptions.sceneProps.walls.forEach((wall) => wall.render());
       }
       //sceneOptions.sceneProps.mines.forEach((mine) => mine.render());
@@ -69,6 +69,7 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
 
   return {
     start: () => loop.start(),
-    stop: () => loop.stop()
+    stop: () => loop.stop(),
+    destroy: () => scene.destroy()
   };
 };
