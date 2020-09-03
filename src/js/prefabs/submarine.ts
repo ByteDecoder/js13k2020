@@ -12,7 +12,8 @@ export const createSubmarine = (): Sprite => {
     y: entryPoint.y * entryRoom.height * blockSize * gameScale + 128,
     color: 'white',
     width: blockSize * gameScale,
-    height: blockSize * gameScale
+    height: blockSize * gameScale,
+    radius: blockSize / 2
   });
 };
 

@@ -10,6 +10,7 @@ import { blockSize, gameScale } from '../gameGlobals';
 const createTimer = (x: number, y: number): Sprite =>
   Sprite({
     type: 'timer',
+    rechargeValue: 3,
     x: x * gameScale,
     y: y * gameScale,
     radius: blockSize / 2,

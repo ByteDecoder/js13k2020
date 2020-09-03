@@ -1,51 +1,61 @@
-import { Scene, GameLoop, GameObject, init, initKeys, Text } from 'kontra';
+import { Scene, GameLoop, GameObject, init, initKeys, Text, Sprite } from 'kontra';
 
 init();
 initKeys();
 
+/**
+ * External interaction with the scene.
+ */
 export interface IGameScene {
   start(): void;
   stop(): void;
+  destroy(): void;
 }
 
+/**
+ * Defien the scene context.
+ */
 export interface SceneOptions {
   cameraLookTarget?: GameObject;
-  update?(dt: number): void;
-  render?(): void;
-  props?: GameObject[];
+  sceneProps?: Sprite[];
   messages?: Text[];
+  update?: (dt?: number, sceneProps?: Sprite[]) => void;
 }
 
-export const createScene = ({
-  cameraLookTarget = null,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  update = () => {},
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  render = () => {},
-  props = [],
-  messages = []
-}: SceneOptions = {}): IGameScene => {
+/**
+ * Creates the game scene with props and camera.
+ * @param sceneOptions Set the scene context.
+ */
+export const createScene = (sceneOptions: SceneOptions): IGameScene => {
   const scene = Scene({
-    id: 'scene',
-    children: [...props]
+    id: 'scene'
   });
+
+  const { sceneProps } = sceneOptions;
+
+  if (sceneProps) {
+    scene.children = sceneProps;
+  }
 
   const loop = GameLoop({
     update: (dt) => {
-      if (cameraLookTarget) {
-        scene.lookAt(cameraLookTarget);
+      if (sceneOptions.cameraLookTarget) {
+        scene.lookAt(sceneOptions.cameraLookTarget);
       }
-      update(dt);
+      sceneOptions.update(dt, sceneOptions.sceneProps);
+
+      // Clean dead GameObjects from the scene.
+      scene.children = scene.children.filter((sprite) => sprite.isAlive());
     },
     render: () => {
       scene.render();
-      render();
-      messages.forEach((message) => message.render());
+      sceneOptions.messages.forEach((message) => message.render());
     }
   });
 
   return {
     start: () => loop.start(),
-    stop: () => loop.stop()
+    stop: () => loop.stop(),
+    destroy: () => scene.destroy()
   };
 };

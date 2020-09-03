@@ -44,7 +44,7 @@ export default class Game {
    * Move to the play state.
    */
   public playGame(): void {
-    this.currentGameScene.stop();
+    this.stopCurrentScene();
     this.stateMachine.transitionToPlayGame();
     this.start();
   }
@@ -53,15 +53,20 @@ export default class Game {
    * Return from game scene to menu scene.
    */
   public gameMenu(): void {
-    this.currentGameScene.stop();
+    this.stopCurrentScene();
     this.stateMachine.transitionToGameMenu();
     this.start();
   }
 
   public gameOver(): void {
-    this.currentGameScene.stop();
+    this.stopCurrentScene();
     this.stateMachine.transitionToGameOver();
     this.start();
+  }
+
+  private stopCurrentScene(): void {
+    this.currentGameScene.stop();
+    this.currentGameScene.destroy();
   }
 
   private loadGameScene(): void {
@@ -77,6 +82,7 @@ export default class Game {
         break;
       default:
         this.currentGameScene = createMenuScene();
+        this.stateMachine.resetFSM();
         break;
     }
   }

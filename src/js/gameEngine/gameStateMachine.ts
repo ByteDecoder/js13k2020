@@ -9,11 +9,21 @@ export default class GameStateMachine {
   private currentState: GameStates;
 
   constructor() {
-    this.currentState = GameStates.GameMenu;
+    this.resetFSM();
   }
 
+  /**
+   * Get current FSM state.
+   */
   public getCurrentState(): GameStates {
     return this.currentState;
+  }
+
+  /**
+   * Resets the FSM to the initial state.
+   */
+  resetFSM(): void {
+    this.currentState = GameStates.GameMenu;
   }
 
   transitionToPlayGame(): void {

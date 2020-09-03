@@ -13,17 +13,17 @@ const gameSubtitle = createMdText('An underwater adventure', {
 const gameAction = createSmText('Press [ENTER] to continue', { x: 400, y: 400 });
 const gameAuthor = createText('Made by ByteDecoder, 2020', { x: 170, y: 580 }, 16);
 
-const props = [gameTitle, gameSubtitle, gameAction, gameAuthor];
-
-const update = () => {
-  if (keyPressed('enter')) {
-    Game.getInstance().playGame();
-  }
-};
-
 /**
  * Creates the Game Menu Scene.
  */
-const createMenuScene = (): IGameScene => createScene({ update, props });
+const createMenuScene = (): IGameScene =>
+  createScene({
+    messages: [gameTitle, gameSubtitle, gameAction, gameAuthor],
+    update() {
+      if (keyPressed('enter')) {
+        Game.getInstance().playGame();
+      }
+    }
+  });
 
 export default createMenuScene;

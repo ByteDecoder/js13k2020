@@ -14,7 +14,8 @@ const createCard = (x: number, y: number): Sprite =>
     y: y * gameScale,
     color: 'grey',
     width: blockSize * gameScale,
-    height: blockSize * gameScale
+    height: blockSize * gameScale,
+    radius: blockSize / 2
   });
 
 export default createCard;

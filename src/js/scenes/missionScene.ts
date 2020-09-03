@@ -1,4 +1,4 @@
-import { keyPressed } from 'kontra';
+import { keyPressed, Sprite } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
 import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
 import createSubmarine from '../prefabs/submarine';
@@ -11,6 +11,10 @@ import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
  * Create the playing level scene.
  */
 const createMissionScene = (): IGameScene => {
+  /**
+   * Submarine player
+   */
+  const player = createSubmarine();
   /**
    * Starting player time.
    */
@@ -46,7 +50,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * LevelMapSprites and worldFullMap
    */
-  const {
+  let {
     levelMapSprites,
     worldFullMap,
     timerCollectibles,
@@ -54,18 +58,13 @@ const createMissionScene = (): IGameScene => {
     minesEnemies
   } = levelMapGenerator.create(worldMap, mapOptions);
 
-  /**
-   * Submarine player
-   */
-  const submarine = createSubmarine();
-
   // eslint-disable-next-line no-console
   // console.log(worldMap);
   // eslint-disable-next-line no-console
   // console.log(worldFullMap);
 
   let deltaTime = 0;
-  const collectedCards = 0;
+  let collectedCards = 0;
 
   const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
@@ -76,7 +75,52 @@ const createMissionScene = (): IGameScene => {
     'right'
   );
 
-  function update(dt: number) {
+  /**
+   * Check if the player collide with other game entity collection.
+   * @param entityCollection
+   * @param actionCallback
+   */
+  const gameEntityCollitions = (
+    entityCollection: Sprite[],
+    actionCallback: (entity: Sprite) => void
+  ) => {
+    for (let index = 0; index < entityCollection.length; index += 1) {
+      const entity = entityCollection[index];
+
+      if (entity.ttl > 0) {
+        // Circle vs circle collision detection
+        const dx = entity.x - player.x;
+        const dy = entity.y - player.y;
+
+        if (Math.hypot(dx, dy) < entity.radius + player.radius) {
+          entity.ttl = 0;
+          actionCallback(entity);
+          break;
+        }
+      }
+    }
+
+    return entityCollection.filter((entity) => entity.isAlive());
+  };
+
+  const finalizePlaySession = () => {
+    levelMapSprites = [];
+    worldFullMap = [];
+    timerCollectibles = [];
+    cardsCollectibles = [];
+    minesEnemies = [];
+  };
+
+  const gameOver = () => {
+    finalizePlaySession();
+    Game.getInstance().gameOver();
+  };
+
+  /**
+   * Main game logic
+   * @param dt deltaTime param
+   */
+  function sceneUpdate(dt: number) {
     deltaTime += dt;
 
     if (deltaTime >= playerTimeRateConsumption) {
@@ -85,53 +129,71 @@ const createMissionScene = (): IGameScene => {
         playerTime -= 1;
         timerText.text = playerTime.toString();
       } else {
-        Game.getInstance().gameOver();
+        gameOver();
       }
     }
 
     if (keyPressed('esc')) {
+      finalizePlaySession();
       Game.getInstance().gameMenu();
     }
 
     // Mapping player postion for the collision layer.
-    const { x, y } = prefabTilePosition(submarine);
+    const { x, y } = prefabTilePosition(player);
 
     if (keyPressed('up')) {
       if (tileIsWalkable({ x, y: y - 1 }, worldFullMap)) {
-        submarine.y -= playerMovementSpeed;
+        player.y -= playerMovementSpeed;
       }
     }
 
     if (keyPressed('down')) {
       if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
-        submarine.y += playerMovementSpeed;
+        player.y += playerMovementSpeed;
       }
     }
 
     if (keyPressed('right')) {
       if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
-        submarine.x += playerMovementSpeed;
+        player.x += playerMovementSpeed;
       }
     }
 
     if (keyPressed('left')) {
       if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
-        submarine.x -= playerMovementSpeed;
+        player.x -= playerMovementSpeed;
       }
     }
+
+    // Check player collitions with other game entities
+    timerCollectibles = gameEntityCollitions(timerCollectibles, (timer) => {
+      playerTime += timer.rechargeValue;
+      timerText.text = playerTime.toString();
+    });
+
+    gameEntityCollitions(cardsCollectibles, () => {
+      collectedCards += 1;
+      cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
+    });
+
+    gameEntityCollitions(minesEnemies, () => {
+      gameOver();
+    });
   }
 
   return createScene({
-    update,
-    props: [
-      submarine,
+    cameraLookTarget: player,
+    sceneProps: [
       ...levelMapSprites,
+      ...minesEnemies,
       ...timerCollectibles,
       ...cardsCollectibles,
-      ...minesEnemies
+      player
     ],
-    cameraLookTarget: submarine,
-    messages: [timerText, missionText, cardsProgressText]
+    messages: [timerText, missionText, cardsProgressText],
+    update(dt) {
+      sceneUpdate(dt);
+    }
   });
 };
 
