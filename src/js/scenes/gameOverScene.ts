@@ -4,7 +4,9 @@ import Game from '../gameEngine/game';
 import createGenericScene from './genericScene';
 
 const title = 'GAME OVER';
-const subtitle = `Your adventure ends here\n after X mission(s).`;
+const subtitle = `Your adventure ends here\n after ${
+  Game && Game.getInstance().missionCount
+} mission(s).`;
 const action = 'Press [x] to continue';
 const footer = 'Try again...';
 

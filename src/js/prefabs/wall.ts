@@ -1,5 +1,6 @@
 import { Sprite } from 'kontra';
 import { blockSize, gameScale } from '../gameGlobals';
+import Game from '../gameEngine/game';
 
 /**
  * Creates a wall prefab.
@@ -14,7 +15,8 @@ const createWall = (x: number, y: number): Sprite =>
     color: 'green',
     width: blockSize * gameScale,
     height: blockSize * gameScale,
-    collitionIdx: `wall_${x}_${y}`
+    collitionIdx: `wall_${x}_${y}`,
+    image: Game.getInstance().imageAssets.get('wall')
   });
 
 export default createWall;

@@ -6,7 +6,7 @@ import createGenericScene from './genericScene';
 const title = 'MISSION COMPLETED';
 const subtitle = 'All 404 cards were collected.';
 const action = 'Press [x] to start the next mission.';
-const footer = `x mission(s) completed`;
+const footer = `${Game && Game.getInstance().missionCount} mission(s) completed`;
 
 /**
  * Creates the Misson Completed Scene.
