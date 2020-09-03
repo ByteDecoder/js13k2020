@@ -7,6 +7,17 @@ declare global {
   }
 }
 
+/* const image = new Image();
+image.src = '../sprites/wall.png';
+image.onload = function () {
+  console.log('here');
+  console.log(image);
+};
+
+load('../sprites/wall.png').then(function () {
+  console.log(imageAssets.wall);
+});
+ */
 document.addEventListener('DOMContentLoaded', function () {
   /**
    * Game execution entry point.
