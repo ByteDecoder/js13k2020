@@ -1,28 +1,20 @@
 import { keyPressed } from 'kontra';
-import { createScene, IGameScene } from './gameScene';
-import { createSmText, createMdText, createLgText, createText } from '../utils/textUtil';
+import { IGameScene } from './gameScene';
 import Game from '../gameEngine/game';
+import createGenericScene from './genericScene';
 
-const gameTitle = createLgText('404 MISSION', { x: 400, y: 200 });
-
-const gameSubtitle = createMdText('An underwater adventure', {
-  x: 400,
-  y: 300
-});
-
-const gameAction = createSmText('Press [ENTER] to continue', { x: 400, y: 400 });
-const gameAuthor = createText('Made by ByteDecoder, 2020', { x: 170, y: 580 }, 16);
+const title = '404 MISSION';
+const subtitle = 'An underwater adventure';
+const action = 'Press [ENTER] to continue';
+const footer = 'Made by ByteDecoder, 2020';
 
 /**
  * Creates the Game Menu Scene.
  */
 const createMenuScene = (): IGameScene =>
-  createScene({
-    messages: [gameTitle, gameSubtitle, gameAction, gameAuthor],
-    update() {
-      if (keyPressed('enter')) {
-        Game.getInstance().playGame();
-      }
+  createGenericScene(title, subtitle, action, footer, () => {
+    if (keyPressed('enter')) {
+      Game.getInstance().playGame();
     }
   });
 

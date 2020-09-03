@@ -11,7 +11,7 @@ const action = 'Press [x] to continue';
  * Creates the Game Over Scene.
  */
 const createGameOverScene = (): IGameScene =>
-  createGenericScene(title, subtitle, action, () => {
+  createGenericScene(title, subtitle, action, '', () => {
     if (keyPressed('x')) {
       Game.getInstance().gameMenu();
     }

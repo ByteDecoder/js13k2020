@@ -11,7 +11,7 @@ const action = 'Press [x] to start the next mission.';
  * Creates the Misson Completed Scene.
  */
 const createMissionCompletedScene = (): IGameScene =>
-  createGenericScene(title, subtitle, action, () => {
+  createGenericScene(title, subtitle, action, '', () => {
     if (keyPressed('x')) {
       Game.getInstance().playGame();
     }

@@ -1,5 +1,5 @@
 import { createScene, IGameScene } from './gameScene';
-import { createSmText, createMdText, createLgText } from '../utils/textUtil';
+import { createSmText, createMdText, createLgText, createText } from '../utils/textUtil';
 
 /**
  * Creates the Generic Scene.
@@ -8,6 +8,7 @@ const createGenericScene = (
   titleText: string,
   subtitleText: string,
   actionText: string,
+  footerText = '',
   callbackAction: () => void
 ): IGameScene => {
   const title = createLgText(titleText, { x: 400, y: 200 });
@@ -19,8 +20,10 @@ const createGenericScene = (
 
   const action = createSmText(actionText, { x: 400, y: 400 });
 
+  const footer = createText(footerText, { x: 170, y: 580 }, 16);
+
   return createScene({
-    messages: [title, subtitle, action],
+    messages: [title, subtitle, action, footer],
     update() {
       callbackAction();
     }
