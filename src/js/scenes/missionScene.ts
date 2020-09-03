@@ -6,6 +6,7 @@ import { createScene, IGameScene } from './gameScene';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
 import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
+import soundFx from '../sounds/soundBank';
 
 /**
  * Create the playing level scene.
@@ -167,16 +168,19 @@ const createMissionScene = (): IGameScene => {
 
     // Check player collitions with other game entities
     timerCollectibles = gameEntityCollitions(timerCollectibles, (timer) => {
+      window.zzfx(...soundFx.pickup);
       playerTime += timer.rechargeValue;
       timerText.text = playerTime.toString();
     });
 
     gameEntityCollitions(cardsCollectibles, () => {
+      window.zzfx(...soundFx.card);
       collectedCards += 1;
       cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
     });
 
     gameEntityCollitions(minesEnemies, () => {
+      window.zzfx(...soundFx.explosion);
       gameOver();
     });
   }

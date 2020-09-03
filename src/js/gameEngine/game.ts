@@ -3,6 +3,7 @@ import { IGameScene } from '../scenes/gameScene';
 import GameStateMachine, { GameStates } from './gameStateMachine';
 import createMissionScene from '../scenes/missionScene';
 import createGameOverScene from '../scenes/gameOverScene';
+import soundFx from '../sounds/soundBank';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -53,6 +54,7 @@ export default class Game {
    * Return from game scene to menu scene.
    */
   public gameMenu(): void {
+    window.zzfx(...soundFx.intro);
     this.stopCurrentScene();
     this.stateMachine.transitionToGameMenu();
     this.start();

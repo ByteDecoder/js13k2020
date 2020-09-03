@@ -13,7 +13,7 @@ export const entryPoint: Position = { x: 5, y: 5 };
 /**
  * Defines a room spawn point data structure.
  */
-interface IRoomSpawnPoint {
+interface RoomSpawnPoint {
   x: number;
   y: number;
   openingDirection: number;
@@ -25,11 +25,11 @@ interface IRoomSpawnPoint {
  * @param y
  * @param openingDirection
  */
-const createRoomSpwanPoint = (x: number, y: number, openingDirection: number): IRoomSpawnPoint => {
+const createRoomSpwanPoint = (x: number, y: number, openingDirection: number): RoomSpawnPoint => {
   return { x, y, openingDirection };
 };
 
-const pendingRooms: IRoomSpawnPoint[] = [];
+const pendingRooms: RoomSpawnPoint[] = [];
 
 /**
  * Creates a new random worldmap for the game session with rooms.
@@ -53,7 +53,7 @@ const create = (): number[][] => {
     newWorld[spawnPoint.y][spawnPoint.x] = newRoom.roomTileNumber;
 
     newRoom.roomDirections.forEach((direction) => {
-      let newSpawnPoint: IRoomSpawnPoint = null;
+      let newSpawnPoint: RoomSpawnPoint = null;
 
       switch (direction) {
         case 1:
