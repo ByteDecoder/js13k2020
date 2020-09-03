@@ -3,7 +3,6 @@ import worldGenerator from '../generators/worldGenerator';
 import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
 import createSubmarine from '../prefabs/submarine';
 import { createScene, IGameScene } from './gameScene';
-import { gameScale, blockSize } from '../gameGlobals';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
 import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
@@ -16,6 +15,11 @@ const createMissionScene = (): IGameScene => {
    * Starting player time.
    */
   let playerTime = 15;
+
+  /**
+   * Player movement speed.
+   */
+  const playerMovementSpeed = 2;
 
   /**
    * Number of secords being passed to reduce player time.
@@ -35,7 +39,7 @@ const createMissionScene = (): IGameScene => {
     timerProbability: 150,
     maxCardsPerLevel: 6,
     cardProbability: 300,
-    maxMinesPerRoom: 10,
+    maxMinesPerRoom: 20,
     mineProbability: 70
   };
 
@@ -66,8 +70,8 @@ const createMissionScene = (): IGameScene => {
   const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
   const cardsProgressText = createText(
-    `Cards collected: ${collectedCards} / ${cardsCollectibles.length}`,
-    { x: 600, y: 570 },
+    `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`,
+    { x: 580, y: 570 },
     24,
     'right'
   );
@@ -90,33 +94,29 @@ const createMissionScene = (): IGameScene => {
     }
 
     // Mapping player postion for the collision layer.
-    let { x, y } = prefabTilePosition(submarine);
+    const { x, y } = prefabTilePosition(submarine);
 
     if (keyPressed('up')) {
-      x = Math.ceil((submarine.y - gameScale * blockSize - 2) / gameScale / blockSize);
-      if (tileIsWalkable({ x, y }, worldFullMap)) {
-        submarine.y -= 2;
+      if (tileIsWalkable({ x, y: y - 1 }, worldFullMap)) {
+        submarine.y -= playerMovementSpeed;
       }
     }
 
     if (keyPressed('down')) {
-      y = Math.ceil((submarine.y + 2) / gameScale / blockSize);
-      if (tileIsWalkable({ x, y }, worldFullMap)) {
-        submarine.y += 2;
+      if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
+        submarine.y += playerMovementSpeed;
       }
     }
 
     if (keyPressed('right')) {
-      x = Math.ceil((submarine.x + 2) / gameScale / blockSize);
-      if (tileIsWalkable({ x, y }, worldFullMap)) {
-        submarine.x += 2;
+      if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
+        submarine.x += playerMovementSpeed;
       }
     }
 
     if (keyPressed('left')) {
-      x = Math.ceil((submarine.x - gameScale * blockSize - 2) / gameScale / blockSize);
-      if (tileIsWalkable({ x, y }, worldFullMap)) {
-        submarine.x -= 2;
+      if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
+        submarine.x -= playerMovementSpeed;
       }
     }
   }

@@ -14,16 +14,16 @@ export interface Position {
  * @param prefab sprite to be mapped
  */
 export const prefabTilePosition = (prefab: Sprite): Position => {
-  const x = Math.ceil(prefab.x / gameScale / blockSize);
-  const y = Math.ceil(prefab.y / gameScale / blockSize);
+  const x = Math.round(prefab.x / gameScale / blockSize);
+  const y = Math.round(prefab.y / gameScale / blockSize);
 
   return { x, y };
 };
 
 /**
  * Checks if the Tile in the desired position is walkable by the player.
- * @param position
- * @param tileMap
+ * @param position tile position target.
+ * @param tileMap tilemap definition.
  */
 export const tileIsWalkable = (position: Position, tileMap: number[][]): boolean => {
   return tileMap[position.y][position.x] === 0 || tileMap[position.y][position.x] === 2;
