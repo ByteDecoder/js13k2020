@@ -38,7 +38,6 @@ export default class Game {
   start(): void {
     this.loadGameScene();
     this.currentGameScene.start();
-    console.log(this.stateMachine.getCurrentState());
   }
 
   /**
