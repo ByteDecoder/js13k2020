@@ -5,6 +5,7 @@ import createMissionScene from '../scenes/missionScene';
 import createGameOverScene from '../scenes/gameOverScene';
 import soundFx from '../sounds/soundBank';
 import createMissionCompletedScene from '../scenes/missionCompletedScene';
+import wallImageUrl from '../../sprites/wall.png';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -37,6 +38,12 @@ export default class Game {
     this.imageAssets = new Map<string, HTMLImageElement>();
     this.missionCount = 0;
     this.currentGameScene = null;
+
+    const image = new Image();
+    image.src = wallImageUrl;
+    image.onload = () => {
+      this.imageAssets.set('wall', image);
+    };
   }
 
   public static getInstance(): Game {
