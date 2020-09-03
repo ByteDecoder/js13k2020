@@ -23,7 +23,7 @@ export interface SceneOptions {
 }
 
 /**
- *
+ * Creates the game scene with props and camera.
  * @param sceneOptions Set the scene context.
  */
 export const createScene = (sceneOptions: SceneOptions): IGameScene => {
@@ -43,6 +43,9 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
         scene.lookAt(sceneOptions.cameraLookTarget);
       }
       sceneOptions.update(dt, sceneOptions.sceneProps);
+
+      // Clean dead GameObjects from the scene.
+      scene.children = scene.children.filter((sprite) => sprite.isAlive());
     },
     render: () => {
       scene.render();
