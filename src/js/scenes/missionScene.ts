@@ -158,23 +158,10 @@ const createMissionScene = (): IGameScene => {
       timerText.text = playerTime.toString();
     });
 
-    // Check player collitions with other game entities
-    for (let index = 0; index < cardsCollectibles.length; index += 1) {
-      const card = cardsCollectibles[index];
-
-      if (card.ttl > 0) {
-        // Circle vs circle collision detection
-        const dx = card.x - player.x;
-        const dy = card.y - player.y;
-
-        if (Math.hypot(dx, dy) < card.radius + player.radius) {
-          card.ttl = 0;
-          collectedCards += 1;
-          cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
-          break;
-        }
-      }
-    }
+    cardsCollectibles = gameEntityCollitions(cardsCollectibles, () => {
+      collectedCards += 1;
+      cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
+    });
   }
 
   return createScene({
