@@ -124,6 +124,11 @@ const createMissionScene = (): IGameScene => {
   function sceneUpdate(dt: number) {
     deltaTime += dt;
 
+    if (collectedCards >= cardsCollectibles.length) {
+      finalizePlaySession();
+      Game.getInstance().missionCompleted();
+    }
+
     if (deltaTime >= playerTimeRateConsumption) {
       deltaTime = 0;
       if (playerTime >= 1) {

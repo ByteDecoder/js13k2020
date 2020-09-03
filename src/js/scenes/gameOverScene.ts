@@ -1,27 +1,19 @@
 import { keyPressed } from 'kontra';
-import { createScene, IGameScene } from './gameScene';
-import { createSmText, createMdText, createLgText } from '../utils/textUtil';
+import { IGameScene } from './gameScene';
 import Game from '../gameEngine/game';
+import createGenericScene from './genericScene';
 
-const gameTitle = createLgText('GAME OVER', { x: 400, y: 200 });
-
-const gameSubtitle = createMdText('Your adventure ends here.', {
-  x: 400,
-  y: 300
-});
-
-const gameAction = createSmText('Press [x] to continue', { x: 400, y: 400 });
+const title = 'GAME OVER';
+const subtitle = 'Your adventure ends here.';
+const action = 'Press [x] to continue';
 
 /**
- * Creates the Game Menu Scene.
+ * Creates the Game Over Scene.
  */
 const createGameOverScene = (): IGameScene =>
-  createScene({
-    messages: [gameTitle, gameSubtitle, gameAction],
-    update() {
-      if (keyPressed('x')) {
-        Game.getInstance().gameMenu();
-      }
+  createGenericScene(title, subtitle, action, () => {
+    if (keyPressed('x')) {
+      Game.getInstance().gameMenu();
     }
   });
 

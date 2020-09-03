@@ -4,6 +4,7 @@ import GameStateMachine, { GameStates } from './gameStateMachine';
 import createMissionScene from '../scenes/missionScene';
 import createGameOverScene from '../scenes/gameOverScene';
 import soundFx from '../sounds/soundBank';
+import createMissionCompletedScene from '../scenes/missionCompletedScene';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -66,6 +67,12 @@ export default class Game {
     this.start();
   }
 
+  public missionCompleted(): void {
+    this.stopCurrentScene();
+    this.stateMachine.transitionToMissionCompleted();
+    this.start();
+  }
+
   private stopCurrentScene(): void {
     this.currentGameScene.stop();
     this.currentGameScene.destroy();
@@ -81,6 +88,9 @@ export default class Game {
         break;
       case GameStates.GameOver:
         this.currentGameScene = createGameOverScene();
+        break;
+      case GameStates.MissionCompleted:
+        this.currentGameScene = createMissionCompletedScene();
         break;
       default:
         this.currentGameScene = createMenuScene();

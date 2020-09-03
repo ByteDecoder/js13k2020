@@ -2,7 +2,8 @@ export enum GameStates {
   GameMenu = 0,
   PlayingGame = 1,
   GameOver = 2,
-  FinalizeGame = 3
+  FinalizeGame = 3,
+  MissionCompleted = 4
 }
 
 export default class GameStateMachine {
@@ -26,14 +27,27 @@ export default class GameStateMachine {
     this.currentState = GameStates.GameMenu;
   }
 
+  transitionToMissionCompleted(): void {
+    if (this.currentState === GameStates.PlayingGame) {
+      this.currentState = GameStates.MissionCompleted;
+    }
+  }
+
   transitionToPlayGame(): void {
-    if (this.currentState === GameStates.GameMenu) {
+    if (
+      this.currentState === GameStates.GameMenu ||
+      this.currentState === GameStates.MissionCompleted
+    ) {
       this.currentState = GameStates.PlayingGame;
     }
   }
 
   transitionToGameMenu(): void {
-    if (this.currentState === GameStates.PlayingGame || this.currentState === GameStates.GameOver) {
+    if (
+      this.currentState === GameStates.PlayingGame ||
+      this.currentState === GameStates.GameOver ||
+      this.currentState === GameStates.MissionCompleted
+    ) {
       this.currentState = GameStates.GameMenu;
     }
   }
