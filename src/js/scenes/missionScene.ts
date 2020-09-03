@@ -66,8 +66,14 @@ const createMissionScene = (): IGameScene => {
 
   let deltaTime = 0;
   let collectedCards = 0;
+  let stopLogic = false;
 
-  const missionText = createText('MISSION 1', { x: 700, y: 50 }, 24, 'right');
+  const missionText = createText(
+    `MISSION ${Game.getInstance().missionCount}`,
+    { x: 700, y: 50 },
+    24,
+    'right'
+  );
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
   const cardsProgressText = createText(
     `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`,
@@ -105,6 +111,7 @@ const createMissionScene = (): IGameScene => {
   };
 
   const finalizePlaySession = () => {
+    stopLogic = true;
     levelMapSprites = [];
     worldFullMap = [];
     timerCollectibles = [];
@@ -122,22 +129,9 @@ const createMissionScene = (): IGameScene => {
    * @param dt deltaTime param
    */
   function sceneUpdate(dt: number) {
+    if (stopLogic) return;
+
     deltaTime += dt;
-
-    if (collectedCards >= cardsCollectibles.length) {
-      finalizePlaySession();
-      Game.getInstance().missionCompleted();
-    }
-
-    if (deltaTime >= playerTimeRateConsumption) {
-      deltaTime = 0;
-      if (playerTime >= 1) {
-        playerTime -= 1;
-        timerText.text = playerTime.toString();
-      } else {
-        gameOver();
-      }
-    }
 
     if (keyPressed('esc')) {
       finalizePlaySession();
@@ -188,6 +182,21 @@ const createMissionScene = (): IGameScene => {
       window.zzfx(...soundFx.explosion);
       gameOver();
     });
+
+    if (collectedCards >= cardsCollectibles.length) {
+      finalizePlaySession();
+      Game.getInstance().missionCompleted();
+    }
+
+    if (deltaTime >= playerTimeRateConsumption) {
+      deltaTime = 0;
+      if (playerTime >= 1) {
+        playerTime -= 1;
+        timerText.text = playerTime.toString();
+      } else {
+        gameOver();
+      }
+    }
   }
 
   return createScene({

@@ -18,12 +18,25 @@ export default class Game {
   public currentGameScene: IGameScene;
 
   /**
+   * Number of mission completed.
+   */
+  public missionCount: number;
+
+  /**
+   * Images sprites for the game
+   */
+  public imageAssets: Map<string, HTMLImageElement>;
+
+  /**
    * Main game FSM.
    */
   public stateMachine: GameStateMachine;
 
   private constructor() {
     this.stateMachine = new GameStateMachine();
+    this.imageAssets = new Map<string, HTMLImageElement>();
+    this.missionCount = 0;
+    this.currentGameScene = null;
   }
 
   public static getInstance(): Game {
@@ -55,6 +68,7 @@ export default class Game {
    * Return from game scene to menu scene.
    */
   public gameMenu(): void {
+    this.missionCount = 1;
     window.zzfx(...soundFx.intro);
     this.stopCurrentScene();
     this.stateMachine.transitionToGameMenu();
@@ -68,6 +82,7 @@ export default class Game {
   }
 
   public missionCompleted(): void {
+    this.missionCount += 1;
     this.stopCurrentScene();
     this.stateMachine.transitionToMissionCompleted();
     this.start();
