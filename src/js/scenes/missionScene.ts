@@ -103,6 +103,23 @@ const createMissionScene = (): IGameScene => {
     return entityCollection.filter((entity) => entity.isAlive());
   };
 
+  const finalizePlaySession = () => {
+    levelMapSprites = [];
+    worldFullMap = [];
+    timerCollectibles = [];
+    cardsCollectibles = [];
+    minesEnemies = [];
+  };
+
+  const gameOver = () => {
+    finalizePlaySession();
+    Game.getInstance().gameOver();
+  };
+
+  /**
+   * Main game logic
+   * @param dt deltaTime param
+   */
   function sceneUpdate(dt: number) {
     deltaTime += dt;
 
@@ -112,16 +129,12 @@ const createMissionScene = (): IGameScene => {
         playerTime -= 1;
         timerText.text = playerTime.toString();
       } else {
-        Game.getInstance().gameOver();
+        gameOver();
       }
     }
 
     if (keyPressed('esc')) {
-      levelMapSprites = [];
-      worldFullMap = [];
-      timerCollectibles = [];
-      cardsCollectibles = [];
-      minesEnemies = [];
+      finalizePlaySession();
       Game.getInstance().gameMenu();
     }
 
@@ -158,9 +171,13 @@ const createMissionScene = (): IGameScene => {
       timerText.text = playerTime.toString();
     });
 
-    cardsCollectibles = gameEntityCollitions(cardsCollectibles, () => {
+    gameEntityCollitions(cardsCollectibles, () => {
       collectedCards += 1;
       cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
+    });
+
+    gameEntityCollitions(minesEnemies, () => {
+      gameOver();
     });
   }
 
