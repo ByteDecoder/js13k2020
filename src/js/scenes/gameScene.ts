@@ -13,26 +13,13 @@ export interface IGameScene {
 }
 
 /**
- * Define a set of sprite categories used in the scene.
- */
-export interface SceneProps {
-  player?: Sprite;
-  walls?: Sprite[];
-  timers?: Sprite[];
-  cards?: Sprite[];
-  mines?: Sprite[];
-  backGroundOne?: Sprite;
-}
-
-/**
  * Defien the scene context.
  */
 export interface SceneOptions {
   cameraLookTarget?: GameObject;
-  sceneProps?: SceneProps;
+  sceneProps?: Sprite[];
   messages?: Text[];
-  update?: (dt?: number, sceneProps?: SceneProps) => void;
-  render?: (sceneProps?: SceneProps) => void;
+  update?: (dt?: number, sceneProps?: Sprite[]) => void;
 }
 
 /**
@@ -44,6 +31,12 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
     id: 'scene'
   });
 
+  const { sceneProps } = sceneOptions;
+
+  if (sceneProps) {
+    scene.children = sceneProps;
+  }
+
   const loop = GameLoop({
     update: (dt) => {
       if (sceneOptions.cameraLookTarget) {
@@ -53,16 +46,6 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
     },
     render: () => {
       scene.render();
-      if (sceneOptions.render) {
-        sceneOptions.render(sceneOptions.sceneProps);
-      }
-      if (sceneOptions.sceneProps) {
-        sceneOptions.sceneProps.walls.forEach((wall) => wall.render());
-      }
-      //sceneOptions.sceneProps.mines.forEach((mine) => mine.render());
-      //sceneOptions.sceneProps.cards.forEach((card) => card.render());
-      //sceneOptions.sceneProps.timers.forEach((timer) => timer.render());
-      //sceneOptions.sceneProps.player.render();
       sceneOptions.messages.forEach((message) => message.render());
     }
   });
