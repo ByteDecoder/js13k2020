@@ -57,7 +57,9 @@ const create = (): number[][] => {
 
       switch (direction) {
         case 1:
-          if (newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
+          if (spawnPoint.y - 1 === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 3);
+          } else if (spawnPoint.y - 1 > 0 && newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 1);
           }
           break;

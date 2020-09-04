@@ -1,5 +1,5 @@
 import { Sprite } from 'kontra';
-import { gameScale } from '../gameGlobals';
+import { gameScale, blockSize } from '../gameGlobals';
 import Game from '../gameEngine/game';
 
 /**
@@ -11,7 +11,22 @@ const createWall = (x: number, y: number): Sprite =>
   Sprite({
     x: x * gameScale,
     y: y * gameScale,
-    image: Game.getInstance().imageAssets.get('wall')
+    width: blockSize * gameScale,
+    height: blockSize * gameScale,
+    spriteSheet: Game.getInstance().spriteSheet,
+    render(this: Sprite) {
+      this.context.drawImage(
+        this.spriteSheet,
+        0,
+        0,
+        blockSize,
+        blockSize,
+        0,
+        0,
+        blockSize,
+        blockSize
+      );
+    }
   });
 
 export default createWall;

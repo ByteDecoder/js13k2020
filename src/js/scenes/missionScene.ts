@@ -51,7 +51,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * LevelMapSprites and worldFullMap
    */
-  let {
+  const {
     levelMapSprites,
     worldFullMap,
     timerCollectibles,
@@ -112,11 +112,11 @@ const createMissionScene = (): IGameScene => {
 
   const finalizePlaySession = () => {
     stopLogic = true;
-    levelMapSprites = [];
+    /*     levelMapSprites = [];
     worldFullMap = [];
     timerCollectibles = [];
     cardsCollectibles = [];
-    minesEnemies = [];
+    minesEnemies = []; */
   };
 
   const gameOver = () => {
@@ -166,7 +166,7 @@ const createMissionScene = (): IGameScene => {
     }
 
     // Check player collitions with other game entities
-    timerCollectibles = gameEntityCollitions(timerCollectibles, (timer) => {
+    gameEntityCollitions(timerCollectibles, (timer) => {
       window.zzfx(...soundFx.pickup);
       playerTime += timer.rechargeValue;
       timerText.text = playerTime.toString();

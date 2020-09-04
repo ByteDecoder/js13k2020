@@ -5,7 +5,7 @@ import createMissionScene from '../scenes/missionScene';
 import createGameOverScene from '../scenes/gameOverScene';
 import soundFx from '../sounds/soundBank';
 import createMissionCompletedScene from '../scenes/missionCompletedScene';
-import wallImageUrl from '../../sprites/wall.png';
+import spriteSheetPath from '../../sprites/404_mission-sheet_8x8_16x32.png';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -26,7 +26,7 @@ export default class Game {
   /**
    * Images sprites for the game
    */
-  public imageAssets: Map<string, HTMLImageElement>;
+  public spriteSheet: HTMLImageElement;
 
   /**
    * Main game FSM.
@@ -35,14 +35,13 @@ export default class Game {
 
   private constructor() {
     this.stateMachine = new GameStateMachine();
-    this.imageAssets = new Map<string, HTMLImageElement>();
     this.missionCount = 0;
     this.currentGameScene = null;
 
     const image = new Image();
-    image.src = wallImageUrl;
+    image.src = spriteSheetPath;
     image.onload = () => {
-      this.imageAssets.set('wall', image);
+      this.spriteSheet = image;
     };
   }
 
@@ -96,6 +95,7 @@ export default class Game {
   }
 
   private stopCurrentScene(): void {
+    this.currentGameScene.hide();
     this.currentGameScene.stop();
     this.currentGameScene.destroy();
   }

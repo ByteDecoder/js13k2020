@@ -10,6 +10,7 @@ export interface IGameScene {
   start(): void;
   stop(): void;
   destroy(): void;
+  hide(): void;
 }
 
 /**
@@ -56,6 +57,7 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
   return {
     start: () => loop.start(),
     stop: () => loop.stop(),
-    destroy: () => scene.destroy()
+    destroy: () => scene.destroy(),
+    hide: () => scene.hide()
   };
 };
