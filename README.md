@@ -1,4 +1,4 @@
-# js13k2020 
+# JS13kbGames 2020 - 404 Mission 
 ![CI](https://github.com/ByteDecoder/js13k2020/workflows/CI/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
