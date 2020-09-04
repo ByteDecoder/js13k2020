@@ -5,7 +5,7 @@ import createMissionScene from '../scenes/missionScene';
 import createGameOverScene from '../scenes/gameOverScene';
 import soundFx from '../sounds/soundBank';
 import createMissionCompletedScene from '../scenes/missionCompletedScene';
-import spriteSheetPath from '../../sprites/404_mission-sheet_8x8_16x32.png';
+import spriteSheetPath from '../../sprites/spritesheet.png';
 
 /**
  * Singleton instance for handling the entire game execution.
