@@ -37,12 +37,7 @@ export default class Game {
     this.stateMachine = new GameStateMachine();
     this.missionCount = 0;
     this.currentGameScene = null;
-
-    const image = new Image();
-    image.src = spriteSheetPath;
-    image.onload = () => {
-      this.spriteSheet = image;
-    };
+    this.loadAssets();
   }
 
   public static getInstance(): Game {
@@ -119,5 +114,13 @@ export default class Game {
         this.stateMachine.resetFSM();
         break;
     }
+  }
+
+  private loadAssets(): void {
+    const image = new Image();
+    image.src = spriteSheetPath;
+    image.onload = () => {
+      this.spriteSheet = image;
+    };
   }
 }
