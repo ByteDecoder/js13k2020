@@ -1,8 +1,6 @@
 import Game from './gameEngine/game';
 import soundFx from './sounds/soundBank';
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
   /**
    * Game execution entry point.
