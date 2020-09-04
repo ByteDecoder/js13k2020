@@ -64,17 +64,23 @@ const create = (): number[][] => {
           }
           break;
         case 2:
-          if (newWorld[spawnPoint.y][spawnPoint.x + 1] === 0) {
+          if (spawnPoint.x + 1 === worldWidthSize - 1) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 4);
+          } else if (newWorld[spawnPoint.y][spawnPoint.x + 1] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x + 1, spawnPoint.y, 2);
           }
           break;
         case 3:
-          if (newWorld[spawnPoint.y + 1][spawnPoint.x] === 0) {
+          if (spawnPoint.y + 1 === worldHeightSize + 1) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x + 1, 1);
+          } else if (newWorld[spawnPoint.y + 1][spawnPoint.x] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y + 1, 3);
           }
           break;
         case 4:
-          if (newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
+          if (spawnPoint.x - 1 === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 2);
+          } else if (newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x - 1, spawnPoint.y, 4);
           }
           break;
