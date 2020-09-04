@@ -3,7 +3,6 @@ import soundFx from './sounds/soundBank';
 
 declare global {
   interface Window {
-    jsfxr: (settings: number[]) => string;
     zzfx: (...args: number[]) => void;
   }
 }
