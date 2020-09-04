@@ -1,7 +1,6 @@
 import { Sprite } from 'kontra';
-import { blockSize } from '../gameGlobals';
 import createWall from '../prefabs/wall';
-import { worldHeightSize, worldWidthSize } from './worldGenerator';
+import { blockSize, worldHeightSize, worldWidthSize } from '../gameGlobals';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
 import getRandomInt from '../lib/mathUtils';
 import createTimer from '../prefabs/timer';

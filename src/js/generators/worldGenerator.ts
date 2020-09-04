@@ -1,14 +1,6 @@
 import { entryRoom } from '../rooms/roomTypes';
 import roomSpawner from '../rooms/roomSpawner';
-import { Position } from '../gameEngine/locationMap';
-
-export const worldWidthSize = 15;
-export const worldHeightSize = 15;
-
-/**
- * Initial game entry point.
- */
-export const entryPoint: Position = { x: 5, y: 5 };
+import { worldHeightSize, worldWidthSize, playerStartingPoint } from '../gameGlobals';
 
 /**
  * Defines a room spawn point data structure.
@@ -39,12 +31,12 @@ const create = (): number[][] => {
     .fill(0)
     .map(() => Array(worldWidthSize).fill(0));
 
-  newWorld[entryPoint.y][entryPoint.x] = entryRoom.roomTileNumber;
+  newWorld[playerStartingPoint.y][playerStartingPoint.x] = entryRoom.roomTileNumber;
 
-  pendingRooms.push(createRoomSpwanPoint(entryPoint.x, entryPoint.y - 1, 1));
-  pendingRooms.push(createRoomSpwanPoint(entryPoint.x + 1, entryPoint.y, 2));
-  pendingRooms.push(createRoomSpwanPoint(entryPoint.x, entryPoint.y + 1, 3));
-  pendingRooms.push(createRoomSpwanPoint(entryPoint.x - 1, entryPoint.y, 4));
+  pendingRooms.push(createRoomSpwanPoint(playerStartingPoint.x, playerStartingPoint.y - 1, 1));
+  pendingRooms.push(createRoomSpwanPoint(playerStartingPoint.x + 1, playerStartingPoint.y, 2));
+  pendingRooms.push(createRoomSpwanPoint(playerStartingPoint.x, playerStartingPoint.y + 1, 3));
+  pendingRooms.push(createRoomSpwanPoint(playerStartingPoint.x - 1, playerStartingPoint.y, 4));
 
   do {
     const spawnPoint = pendingRooms.shift();
