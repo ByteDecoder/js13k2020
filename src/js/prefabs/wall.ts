@@ -23,8 +23,8 @@ const createWall = (x: number, y: number): Sprite =>
         blockSize,
         0,
         0,
-        blockSize,
-        blockSize
+        blockSize * gameScale,
+        blockSize * gameScale
       );
     }
   });

@@ -13,7 +13,7 @@ const createTimer = (x: number, y: number): Sprite =>
     rechargeValue: 3,
     x: x * gameScale,
     y: y * gameScale,
-    radius: blockSize / 2,
+    radius: (blockSize * gameScale) / 2,
     render() {
       this.context.strokeStyle = 'white';
       this.context.beginPath(); // start drawing a shape

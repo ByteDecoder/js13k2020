@@ -1,7 +1,7 @@
 import { keyPressed, Sprite } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
 import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
-import createSubmarine from '../prefabs/submarine';
+import createPlayer from '../prefabs/player';
 import { createScene, IGameScene } from './gameScene';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
@@ -15,7 +15,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * Submarine player
    */
-  const player = createSubmarine();
+  const player = createPlayer();
   /**
    * Starting player time.
    */

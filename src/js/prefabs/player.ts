@@ -7,13 +7,13 @@ import Game from '../gameEngine/game';
 /**
  * Creates an instance of the submarine player.
  */
-export const createSubmarine = (): Sprite => {
+const createPlayer = (): Sprite => {
   return Sprite({
-    x: entryPoint.x * entryRoom.width * blockSize * gameScale + 16,
-    y: entryPoint.y * entryRoom.height * blockSize * gameScale + 16,
+    x: entryPoint.x * entryRoom.width * blockSize * gameScale + blockSize * gameScale,
+    y: entryPoint.y * entryRoom.height * blockSize * gameScale + blockSize * gameScale,
     width: blockSize * gameScale,
     height: blockSize * gameScale,
-    radius: blockSize / 2,
+    radius: (blockSize * gameScale) / 2,
     spriteSheet: Game.getInstance().spriteSheet,
     render(this: Sprite) {
       this.context.drawImage(
@@ -22,13 +22,13 @@ export const createSubmarine = (): Sprite => {
         0,
         blockSize,
         blockSize,
-        8,
         0,
-        blockSize,
-        blockSize
+        0,
+        blockSize * gameScale,
+        blockSize * gameScale
       );
     }
   });
 };
 
-export default createSubmarine;
+export default createPlayer;
