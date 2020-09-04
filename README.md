@@ -1,12 +1,11 @@
 # js13k2020
 
 ![CI](https://github.com/ByteDecoder/js13k2020/workflows/CI/badge.svg)
+![License](https://img.shields.io/badge/license-MIT-green)
 
 404 theme game for js13kGames coding competition Sep 13, 2020
 
 Bundled with 🖤 with Parcel.
-
-![License](https://img.shields.io/badge/license-MIT-green)
 
 ## Getting started with development
 
