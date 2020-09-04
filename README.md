@@ -1,5 +1,4 @@
-# js13k2020
-
+# js13k2020 
 ![CI](https://github.com/ByteDecoder/js13k2020/workflows/CI/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -7,6 +6,16 @@
 
 Bundled with 🖤 with Parcel.
 
+## 404 Mission
+
+Procedural dungeon roguelike that increases the replayability. 
+
+- Objective
+  - Collected all the 404 cards required in each mission level and try to survive the major number of missions
+  - Player will survive until the time is depleted or getting an impact from a mine
+- Controls
+  - Arrow keys to move the player submarine 
+  
 ## Getting started with development
 
 ## Requirements
@@ -29,7 +38,7 @@ yarn install
 
 ## Development 
 
-Serve the code in deveopment mode
+Serve the code in development mode
 
 ```bash
 yarn dev
