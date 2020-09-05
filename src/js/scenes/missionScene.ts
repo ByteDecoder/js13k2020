@@ -144,19 +144,19 @@ const createMissionScene = (): IGameScene => {
       }
     }
 
-    if (keyPressed('down') || keyPressed(s)) {
+    if (keyPressed('down') || keyPressed('s')) {
       if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
         player.y += playerMovementSpeed;
       }
     }
 
-    if (keyPressed('right') || keyPressed('a')) {
+    if (keyPressed('right') || keyPressed('d')) {
       if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
         player.x += playerMovementSpeed;
       }
     }
 
-    if (keyPressed('left') || keyPressed('d')) {
+    if (keyPressed('left') || keyPressed('a')) {
       if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
         player.x -= playerMovementSpeed;
       }
