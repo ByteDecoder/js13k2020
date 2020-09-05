@@ -29,7 +29,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * Number of secords being passed to reduce player time.
    */
-  const playerTimeRateConsumption = 1;
+  const playerTimeRateConsumption = 2;
 
   /**
    * Random generated world map.
@@ -42,7 +42,7 @@ const createMissionScene = (): IGameScene => {
   const mapOptions: MapGeneratorOptions = {
     maxTimersPerRoom: 3,
     timerProbability: 100,
-    maxCardsPerLevel: 15,
+    maxCardsPerLevel: 10,
     cardProbability: 200,
     maxMinesPerRoom: 20,
     mineProbability: 70
@@ -56,7 +56,8 @@ const createMissionScene = (): IGameScene => {
     worldFullMap,
     timerCollectibles,
     cardsCollectibles,
-    minesEnemies
+    minesEnemies,
+    backgroundProps
   } = levelMapGenerator.create(worldMap, mapOptions);
 
   // eslint-disable-next-line no-console
@@ -76,8 +77,8 @@ const createMissionScene = (): IGameScene => {
   );
   const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
   const cardsProgressText = createText(
-    `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`,
-    { x: 580, y: 570 },
+    `404 Cards: ${collectedCards} / ${cardsCollectibles.length}`,
+    { x: 650, y: 570 },
     24,
     'right'
   );
@@ -171,7 +172,7 @@ const createMissionScene = (): IGameScene => {
     gameEntityCollitions(cardsCollectibles, () => {
       window.zzfx(...soundFx.card);
       collectedCards += 1;
-      cardsProgressText.text = `404 Cards collected: ${collectedCards} / ${cardsCollectibles.length}`;
+      cardsProgressText.text = `404 Cards: ${collectedCards} / ${cardsCollectibles.length}`;
     });
 
     gameEntityCollitions(minesEnemies, () => {
@@ -198,6 +199,7 @@ const createMissionScene = (): IGameScene => {
   return createScene({
     cameraLookTarget: player,
     sceneProps: [
+      ...backgroundProps,
       ...levelMapSprites,
       ...minesEnemies,
       ...timerCollectibles,

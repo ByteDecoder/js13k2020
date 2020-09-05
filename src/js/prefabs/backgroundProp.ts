@@ -8,20 +8,19 @@ import Game from '../gameEngine/game';
  * @param y
  * @param scale
  */
-const createMine = (x: number, y: number): Sprite =>
+const createBackgroundProp = (x: number, y: number, variant: number): Sprite =>
   Sprite({
-    type: 'mine',
+    type: 'backgroundProp',
     x: x * gameScale,
     y: y * gameScale,
     width: blockSize * gameScale,
     height: blockSize * gameScale,
-    radius: (blockSize * gameScale) / 3,
     spriteSheet: Game.getInstance().spriteSheet,
     render(this: Sprite) {
       this.context.drawImage(
         this.spriteSheet,
-        0,
-        24,
+        variant,
+        8,
         blockSize,
         blockSize,
         0,
@@ -32,4 +31,4 @@ const createMine = (x: number, y: number): Sprite =>
     }
   });
 
-export default createMine;
+export default createBackgroundProp;

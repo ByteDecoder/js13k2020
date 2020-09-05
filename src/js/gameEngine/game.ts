@@ -35,7 +35,7 @@ export default class Game {
 
   private constructor() {
     this.stateMachine = new GameStateMachine();
-    this.missionCount = 0;
+    this.missionCount = 1;
     this.currentGameScene = null;
     this.loadAssets();
   }

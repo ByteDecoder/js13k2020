@@ -6,6 +6,7 @@ import getRandomInt from '../lib/mathUtils';
 import createTimer from '../prefabs/timer';
 import createCard from '../prefabs/card';
 import createMine from '../prefabs/mine';
+import createBacgroundProp from '../prefabs/backgroundProp';
 
 export interface MapGeneratorOptions {
   /**
@@ -41,6 +42,7 @@ export interface MapGeneratorOutput {
   timerCollectibles: Sprite[];
   cardsCollectibles: Sprite[];
   minesEnemies: Sprite[];
+  backgroundProps: Sprite[];
 }
 
 /**
@@ -58,6 +60,7 @@ const create = (
   const timerCollectibles = [];
   const cardsCollectibles = [];
   const minesEnemies = [];
+  const backgroundProps = [];
 
   const worldFullMap = Array(entryRoom.height * worldHeightSize)
     .fill(0)
@@ -115,6 +118,7 @@ const create = (
               // Create 404 cards collectibles.
               if (totalCards < mapGeneratorOptions.maxCardsPerLevel && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.cardProbability);
+                // We need at least 1 404 card in the game level
                 if (chanceCollectible === 10 || totalCards === 0) {
                   const card = createCard(baseX, baseY);
                   totalCards += 1;
@@ -128,7 +132,18 @@ const create = (
                 if (chanceCollectible === 5) {
                   const mine = createMine(baseX, baseY);
                   totalMines += 1;
+                  pointUsed = true;
                   minesEnemies.push(mine);
+                }
+              }
+
+              // Background Props
+              if (!pointUsed) {
+                const chanceProp = getRandomInt(0, 7);
+                if (chanceProp === 5) {
+                  backgroundProps.push(
+                    createBacgroundProp(baseX, baseY, Math.floor(Math.random() * 2) * 8)
+                  );
                 }
               }
             }
@@ -137,7 +152,14 @@ const create = (
       }
     }
   }
-  return { levelMapSprites, worldFullMap, timerCollectibles, cardsCollectibles, minesEnemies };
+  return {
+    levelMapSprites,
+    worldFullMap,
+    timerCollectibles,
+    cardsCollectibles,
+    minesEnemies,
+    backgroundProps
+  };
 };
 
 export default { create };

@@ -13,7 +13,6 @@ const createCard = (x: number, y: number): Sprite =>
     type: 'card',
     x: x * gameScale,
     y: y * gameScale,
-    color: 'grey',
     width: blockSize * gameScale,
     height: blockSize * gameScale,
     radius: (blockSize * gameScale) / 2,
