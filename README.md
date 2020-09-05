@@ -64,3 +64,9 @@ For bulding the production bundle and check if size is still under 13kb run
 ```bash
 yarn party
 ```
+
+After building the production release, for save some extra bytes you can use advzip
+
+```bash
+advzip -z - 4 <game_zipfile>.zip
+```
