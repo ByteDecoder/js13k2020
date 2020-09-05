@@ -1,7 +1,7 @@
 /**
  * Player gameplay options.
  */
-interface PlayerOptions {
+export interface PlayerOptions {
   /**
    * Starting player time.
    */

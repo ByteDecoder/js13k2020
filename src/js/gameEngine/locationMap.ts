@@ -1,5 +1,5 @@
 import { Sprite } from 'kontra';
-import { gameScale, blockSize } from '../gameGlobals';
+import { gameScale, blockSize } from './gameGlobals';
 
 /**
  * Represents a x,y point.

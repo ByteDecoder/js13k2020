@@ -1,5 +1,5 @@
 import { Sprite } from 'kontra';
-import { gameScale, blockSize, playerStartingPoint as entryPoint } from '../gameGlobals';
+import { gameScale, blockSize, playerStartingPoint as entryPoint } from '../gameEngine/gameGlobals';
 import { entryRoom } from '../rooms/roomTypes';
 import Game from '../gameEngine/game';
 

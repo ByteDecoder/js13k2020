@@ -1,6 +1,6 @@
 import { Sprite } from 'kontra';
 import createWall from '../prefabs/wall';
-import { blockSize, worldHeightSize, worldWidthSize } from '../gameGlobals';
+import { blockSize, worldHeightSize, worldWidthSize } from '../gameEngine/gameGlobals';
 import { roomContainer, entryRoom } from '../rooms/roomTypes';
 import getRandomInt from '../lib/mathUtils';
 import createTimer from '../prefabs/timer';
@@ -107,7 +107,7 @@ const create = (
               // Create timers collectibles.
               if (totalTimers < mapGeneratorOptions.maxTimersPerRoom && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.timerProbability);
-                if (chanceCollectible === 5) {
+                if (chanceCollectible >= 5 && chanceCollectible <= 7) {
                   const timer = createTimer(baseX, baseY);
                   totalTimers += 1;
                   pointUsed = true;

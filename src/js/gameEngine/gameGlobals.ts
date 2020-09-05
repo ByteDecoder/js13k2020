@@ -1,4 +1,4 @@
-import { Position } from './gameEngine/locationMap';
+import { Position } from './locationMap';
 
 /**
  * Game sprite scale multiplier.

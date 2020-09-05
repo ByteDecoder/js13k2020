@@ -1,7 +1,7 @@
 /**
  * HyperEngine gameplay options.
  */
-interface HyperEngineOptions {
+export interface HyperEngineOptions {
   /**
    * Hyper Engine is ready for use?
    */

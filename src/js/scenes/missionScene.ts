@@ -1,12 +1,17 @@
 import { keyPressed, Sprite } from 'kontra';
 import worldGenerator from '../generators/worldGenerator';
-import levelMapGenerator, { MapGeneratorOptions } from '../generators/levelMapGenerator';
+import levelMapGenerator from '../generators/levelMapGenerator';
 import createPlayer from '../prefabs/player';
 import { createScene, IGameScene } from './gameScene';
 import Game from '../gameEngine/game';
 import { createText } from '../utils/textUtil';
 import { prefabTilePosition, tileIsWalkable } from '../gameEngine/locationMap';
 import soundFx from '../sounds/soundBank';
+import {
+  defaultPlayerOptions,
+  defaultHyperEngineOptions,
+  defaultMapGeneratorOptions
+} from '../gameEngine/gameBalanceOptions';
 
 /**
  * Create the playing level scene.
@@ -16,22 +21,8 @@ const createMissionScene = (): IGameScene => {
    * Submarine player
    */
   const player = createPlayer();
-
-  const playerOptions: PlayerOptions = {
-    playerTime: 15,
-    playerMovementSpeed: 2,
-    playerTimeRateConsumption: 2,
-    sonarTimeRate: 2
-  };
-
-  const hyperEngineOptions: HyperEngineOptions = {
-    isHyperEngineReady: false,
-    hyperEngineEnabled: false,
-    hyperEngineVelocity: 4,
-    hyperEngineRechargeTime: 5,
-    hyperEngineCharges: 3,
-    hyperEngineDurationTime: 5
-  };
+  const playerOptions = defaultPlayerOptions();
+  const hyperEngineOptions = defaultHyperEngineOptions();
 
   /**
    * Random generated world map.
@@ -41,14 +32,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * Maop generation options.
    */
-  const mapOptions: MapGeneratorOptions = {
-    maxTimersPerRoom: 3,
-    timerProbability: 100,
-    maxCardsPerLevel: 10,
-    cardProbability: 200,
-    maxMinesPerRoom: 20,
-    mineProbability: 70
-  };
+  const mapOptions = defaultMapGeneratorOptions();
 
   /**
    * LevelMapSprites and worldFullMap

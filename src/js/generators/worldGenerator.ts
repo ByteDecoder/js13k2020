@@ -1,6 +1,6 @@
 import { entryRoom } from '../rooms/roomTypes';
 import roomSpawner from '../rooms/roomSpawner';
-import { worldHeightSize, worldWidthSize, playerStartingPoint } from '../gameGlobals';
+import { worldHeightSize, worldWidthSize, playerStartingPoint } from '../gameEngine/gameGlobals';
 
 /**
  * Defines a room spawn point data structure.

@@ -1,5 +1,5 @@
 import { Sprite } from 'kontra';
-import { blockSize, gameScale } from '../gameGlobals';
+import { blockSize, gameScale } from '../gameEngine/gameGlobals';
 
 /**
  * Creates a Timer prefab.
