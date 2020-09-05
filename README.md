@@ -8,11 +8,16 @@ Bundled with 🖤 with Parcel.
 
 ## 404 Mission
 
-Procedural dungeon roguelike that increases the replayability. 
+Exploring in an unknow underwater facility, your mission on the *Anegelizer (Project 404)* submarine, is collect the **404 Cards** that contains traces of an unknown lost 
+civilization for further study.
+
+How many missions, could you survive with the *Angelizer*?
+
+404 Mission game is based on a procedural dungeon roguelike that increases the replayability. 
 
 - Objective
   - Collected all the 404 cards required in each mission level and try to survive the major number of missions
-  - Player will survive until the time is depleted or getting an impact from a mine
+  - The Player will survive until the time is depleted or getting an impact from a mine
 - Controls
   - Arrow keys to move the player submarine 
   
