@@ -8,7 +8,7 @@ Bundled with 🖤 with Parcel.
 
 ## 404 Mission
 
-Exploring in an unknow underwater facility, your mission on the *Anegelizer (Project 404)* submarine, is collect the **404 Cards** that contains traces of an unknown lost 
+Exploring an unknow underwater facility, your mission on the *Anegelizer (Project 404)* submarine, is collect the **404 Cards** that contains traces of an unknown lost 
 civilization for further study.
 
 How many missions, could you survive with the *Angelizer*?
