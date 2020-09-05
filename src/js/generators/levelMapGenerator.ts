@@ -115,7 +115,7 @@ const create = (
               // Create 404 cards collectibles.
               if (totalCards < mapGeneratorOptions.maxCardsPerLevel && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.cardProbability);
-                if (chanceCollectible === 10) {
+                if (chanceCollectible === 10 || totalCards === 0) {
                   const card = createCard(baseX, baseY);
                   totalCards += 1;
                   cardsCollectibles.push(card);
