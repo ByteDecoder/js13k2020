@@ -50,28 +50,28 @@ const create = (): number[][] => {
       switch (direction) {
         case 1:
           if (spawnPoint.y - 1 === 0) {
-            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 3);
-          } else if (spawnPoint.y - 1 > 0 && newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 5);
+          } else if (newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y - 1, 1);
           }
           break;
         case 2:
           if (spawnPoint.x + 1 === worldWidthSize - 1) {
-            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 4);
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 6);
           } else if (newWorld[spawnPoint.y][spawnPoint.x + 1] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x + 1, spawnPoint.y, 2);
           }
           break;
         case 3:
           if (spawnPoint.y + 1 === worldHeightSize + 1) {
-            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x + 1, 1);
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x + 1, 7);
           } else if (newWorld[spawnPoint.y + 1][spawnPoint.x] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.y + 1, 3);
           }
           break;
         case 4:
           if (spawnPoint.x - 1 === 0) {
-            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 2);
+            newSpawnPoint = createRoomSpwanPoint(spawnPoint.x, spawnPoint.x - 1, 8);
           } else if (newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
             newSpawnPoint = createRoomSpwanPoint(spawnPoint.x - 1, spawnPoint.y, 4);
           }

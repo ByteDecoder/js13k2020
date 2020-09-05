@@ -3,7 +3,7 @@ import { Position } from './gameEngine/locationMap';
 /**
  * Game sprite scale multiplier.
  */
-export const gameScale = 4;
+export const gameScale = 1;
 /**
  * Game sprite size.
  */

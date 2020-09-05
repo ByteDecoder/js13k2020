@@ -58,7 +58,7 @@ export const entryRoom: RoomStruct = {
 /**
  * Bottom door room.
  */
-const bRoom: RoomStruct = {
+export const bRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 11,
   width: 12,
@@ -82,7 +82,7 @@ const bRoom: RoomStruct = {
 /**
  * Left door room.
  */
-const lRoom: RoomStruct = {
+export const lRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 12,
   width: 12,
@@ -130,7 +130,7 @@ const lrRoom: RoomStruct = {
 /**
  * Right door room.
  */
-const rRoom: RoomStruct = {
+export const rRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 14,
   width: 12,
@@ -178,7 +178,7 @@ const brRoom: RoomStruct = {
 /**
  * Top door room.
  */
-const tRoom: RoomStruct = {
+export const tRoom: RoomStruct = {
   roomDirections: [],
   roomTileNumber: 16,
   width: 12,

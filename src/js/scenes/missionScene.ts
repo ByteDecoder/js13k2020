@@ -41,9 +41,9 @@ const createMissionScene = (): IGameScene => {
    */
   const mapOptions: MapGeneratorOptions = {
     maxTimersPerRoom: 3,
-    timerProbability: 150,
-    maxCardsPerLevel: 6,
-    cardProbability: 300,
+    timerProbability: 100,
+    maxCardsPerLevel: 15,
+    cardProbability: 200,
     maxMinesPerRoom: 20,
     mineProbability: 70
   };
@@ -112,11 +112,6 @@ const createMissionScene = (): IGameScene => {
 
   const finalizePlaySession = () => {
     stopLogic = true;
-    /*     levelMapSprites = [];
-    worldFullMap = [];
-    timerCollectibles = [];
-    cardsCollectibles = [];
-    minesEnemies = []; */
   };
 
   const gameOver = () => {
@@ -127,6 +122,7 @@ const createMissionScene = (): IGameScene => {
   /**
    * Main game logic
    * @param dt deltaTime param
+   * @param gameLoop
    */
   function sceneUpdate(dt: number) {
     if (stopLogic) return;
