@@ -1,4 +1,5 @@
-# JS13kbGames 2020 - 404 Mission 
+# JS13kbGames 2020 - 404 Mission
+
 ![CI](https://github.com/ByteDecoder/js13k2020/workflows/CI/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
@@ -12,19 +13,15 @@ Exploring an unknow underwater facility, in a secret mission called **404 Missio
 
 How many missions, could you survive with the *Angelizer*?
 
-404 Mission game is based on a procedural dungeon roguelike that increases the replayability. 
+404 Mission game is based on a procedural dungeon roguelike that increases the replayability.
 
 - Objective
   - Collected all the 404 cards required in each mission level and try to survive the major number of missions
   - The Player will survive until the time is depleted or getting an impact from a mine
 - Controls
-  - Arrow keys to move the player submarine 
-  
+  - Arrow keys to move the player submarine
+
 ## Getting started with development
-
-## Requirements
-
-[Node.js](https://nodejs.org) and [Yarn](https://yarnpkg.com/) are required to install dependencies and run scripts via `yarn`.
 
 ## Requirements
 
@@ -32,7 +29,7 @@ How many missions, could you survive with the *Angelizer*?
 
 [Parcel](https://parceljs.org/getting_started.html) is required to bundle and serve the web application. You can install Parcel by running the following command: `yarn global add parcel-bundler`.
 
-## Setup 
+## Setup
 
 Getting all js dependencies
 
@@ -40,7 +37,7 @@ Getting all js dependencies
 yarn install
 ```
 
-## Development 
+## Development
 
 Serve the code in development mode
 
@@ -61,5 +58,3 @@ For bulding the production bundle and check if size is still under 13kb run
 ```bash
 yarn party
 ```
-
-
