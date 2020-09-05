@@ -18,6 +18,12 @@ How many missions, could you survive with the *Angelizer*?
 - Objective
   - Collected all the 404 cards required in each mission level and try to survive the major number of missions
   - The Player will survive until the time is depleted or getting an impact from a mine
+- Mechanics
+  - Collect bubble times to extend your life time
+- Rules
+  - Game ends if the time expires
+  - Mission is completed if the player collect all the 404 cards in the play level
+  - If the play impact a mine, the player dies and game is over
 - Controls
   - Arrow keys to move the player submarine
 
