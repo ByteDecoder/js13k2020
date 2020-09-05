@@ -32,6 +32,11 @@ const createMissionScene = (): IGameScene => {
   const playerTimeRateConsumption = 2;
 
   /**
+   * Time to play the submarine sonar sound.
+   */
+  const sonarTimeRate = 2;
+
+  /**
    * Random generated world map.
    */
   const worldMap = worldGenerator.create();
@@ -66,6 +71,7 @@ const createMissionScene = (): IGameScene => {
   // console.log(worldFullMap);
 
   let deltaTime = 0;
+  let sonarDeltaTime = 0;
   let collectedCards = 0;
   let stopLogic = false;
 
@@ -120,6 +126,43 @@ const createMissionScene = (): IGameScene => {
     Game.getInstance().gameOver();
   };
 
+  const submarineSonar = (dt: number) => {
+    sonarDeltaTime += dt;
+    if (sonarDeltaTime >= sonarTimeRate) {
+      sonarDeltaTime = 0;
+      window.zzfx(...soundFx.submarineSonar);
+    }
+  };
+
+  const submarineMovement = () => {
+    // Mapping player postion for the collision layer.
+    const { x, y } = prefabTilePosition(player);
+
+    if (keyPressed('up') || keyPressed('w')) {
+      if (tileIsWalkable({ x, y: y - 1 }, worldFullMap)) {
+        player.y -= playerMovementSpeed;
+      }
+    }
+
+    if (keyPressed('down') || keyPressed(s)) {
+      if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
+        player.y += playerMovementSpeed;
+      }
+    }
+
+    if (keyPressed('right') || keyPressed('a')) {
+      if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
+        player.x += playerMovementSpeed;
+      }
+    }
+
+    if (keyPressed('left') || keyPressed('d')) {
+      if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
+        player.x -= playerMovementSpeed;
+      }
+    }
+  };
+
   /**
    * Main game logic
    * @param dt deltaTime param
@@ -130,36 +173,12 @@ const createMissionScene = (): IGameScene => {
 
     deltaTime += dt;
 
+    submarineSonar(dt);
+    submarineMovement();
+
     if (keyPressed('esc')) {
       finalizePlaySession();
       Game.getInstance().gameMenu();
-    }
-
-    // Mapping player postion for the collision layer.
-    const { x, y } = prefabTilePosition(player);
-
-    if (keyPressed('up')) {
-      if (tileIsWalkable({ x, y: y - 1 }, worldFullMap)) {
-        player.y -= playerMovementSpeed;
-      }
-    }
-
-    if (keyPressed('down')) {
-      if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
-        player.y += playerMovementSpeed;
-      }
-    }
-
-    if (keyPressed('right')) {
-      if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
-        player.x += playerMovementSpeed;
-      }
-    }
-
-    if (keyPressed('left')) {
-      if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
-        player.x -= playerMovementSpeed;
-      }
     }
 
     // Check player collitions with other game entities

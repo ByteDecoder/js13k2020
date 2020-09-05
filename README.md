@@ -25,7 +25,7 @@ How many missions, could you survive with the *Angelizer*?
   - Mission is completed if the player collect all the 404 cards in the play level
   - If the play impact a mine, the player dies and game is over
 - Controls
-  - Arrow keys to move the player submarine
+  - Arrow keys or ASDW to move the player submarine
 
 ## Getting started with development
 
