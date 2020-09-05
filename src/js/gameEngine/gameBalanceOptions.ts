@@ -19,7 +19,7 @@ export const defaultHyperEngineOptions = (): HyperEngineOptions => {
     hyperEngineVelocity: 4,
     hyperEngineRechargeTime: 10,
     hyperEngineCharges: 3,
-    hyperEngineDurationTime: 10
+    hyperEngineDurationTime: 5
   };
 };
 

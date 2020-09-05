@@ -107,7 +107,7 @@ const create = (
               // Create timers collectibles.
               if (totalTimers < mapGeneratorOptions.maxTimersPerRoom && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.timerProbability);
-                if (chanceCollectible >= 5 && chanceCollectible <= 7) {
+                if (chanceCollectible >= 5 && chanceCollectible <= 6) {
                   const timer = createTimer(baseX, baseY);
                   totalTimers += 1;
                   pointUsed = true;
@@ -122,6 +122,7 @@ const create = (
                 if (chanceCollectible === 10 || totalCards === 0) {
                   const card = createCard(baseX, baseY);
                   totalCards += 1;
+                  pointUsed = true;
                   cardsCollectibles.push(card);
                 }
               }
