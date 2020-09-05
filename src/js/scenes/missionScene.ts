@@ -16,25 +16,22 @@ const createMissionScene = (): IGameScene => {
    * Submarine player
    */
   const player = createPlayer();
-  /**
-   * Starting player time.
-   */
-  let playerTime = 15;
 
-  /**
-   * Player movement speed.
-   */
-  const playerMovementSpeed = 2;
+  const playerOptions: PlayerOptions = {
+    playerTime: 15,
+    playerMovementSpeed: 2,
+    playerTimeRateConsumption: 2,
+    sonarTimeRate: 2
+  };
 
-  /**
-   * Number of secords being passed to reduce player time.
-   */
-  const playerTimeRateConsumption = 2;
-
-  /**
-   * Time to play the submarine sonar sound.
-   */
-  const sonarTimeRate = 2;
+  const hyperEngineOptions: HyperEngineOptions = {
+    isHyperEngineReady: false,
+    hyperEngineEnabled: false,
+    hyperEngineVelocity: 4,
+    hyperEngineRechargeTime: 5,
+    hyperEngineCharges: 3,
+    hyperEngineDurationTime: 5
+  };
 
   /**
    * Random generated world map.
@@ -70,8 +67,19 @@ const createMissionScene = (): IGameScene => {
   // eslint-disable-next-line no-console
   // console.log(worldFullMap);
 
+  /**
+   * Return the HyperEngine status.
+   */
+  const hyperEngineStatus = (): string => {
+    if (hyperEngineOptions.hyperEngineEnabled) {
+      return 'IN USE';
+    }
+    return hyperEngineOptions.isHyperEngineReady ? 'READY' : 'NOT READY';
+  };
+
   let deltaTime = 0;
   let sonarDeltaTime = 0;
+  let hyperEngineDeltaTime = 0;
   let collectedCards = 0;
   let stopLogic = false;
 
@@ -81,12 +89,19 @@ const createMissionScene = (): IGameScene => {
     24,
     'right'
   );
-  const timerText = createText(playerTime.toString(), { x: 400, y: 50 }, 64);
+  const timerText = createText(playerOptions.playerTime.toString(), { x: 400, y: 50 }, 64);
   const cardsProgressText = createText(
     `404 Cards: ${collectedCards} / ${cardsCollectibles.length}`,
     { x: 650, y: 570 },
     24,
     'right'
+  );
+
+  const hyperEngineText = createText(
+    `HyperEngine(${hyperEngineOptions.hyperEngineCharges}) ${hyperEngineStatus()}`,
+    { x: 200, y: 570 },
+    24,
+    'left'
   );
 
   /**
@@ -126,39 +141,106 @@ const createMissionScene = (): IGameScene => {
     Game.getInstance().gameOver();
   };
 
+  /**
+   * Submarine sonar sound.
+   * @param dt delta time
+   */
   const submarineSonar = (dt: number) => {
     sonarDeltaTime += dt;
-    if (sonarDeltaTime >= sonarTimeRate) {
+    if (sonarDeltaTime >= playerOptions.sonarTimeRate) {
       sonarDeltaTime = 0;
       window.zzfx(...soundFx.submarineSonar);
     }
   };
 
+  /**
+   * Hyper Engine mechanic logic.
+   * @param dt delta time
+   */
+  const hyperEngineState = (dt: number) => {
+    if (!hyperEngineOptions.isHyperEngineReady || hyperEngineOptions.hyperEngineEnabled) {
+      hyperEngineDeltaTime += dt;
+    }
+
+    if (
+      hyperEngineDeltaTime >= hyperEngineOptions.hyperEngineRechargeTime &&
+      !hyperEngineOptions.isHyperEngineReady
+    ) {
+      hyperEngineDeltaTime = 0;
+      hyperEngineOptions.isHyperEngineReady = true;
+    } else if (
+      hyperEngineDeltaTime >= hyperEngineOptions.hyperEngineDurationTime &&
+      hyperEngineOptions.hyperEngineEnabled
+    ) {
+      hyperEngineDeltaTime = 0;
+      hyperEngineOptions.hyperEngineEnabled = false;
+      hyperEngineOptions.isHyperEngineReady = false;
+    }
+
+    if (
+      keyPressed('space') &&
+      hyperEngineOptions.isHyperEngineReady &&
+      !hyperEngineOptions.hyperEngineEnabled &&
+      hyperEngineOptions.hyperEngineCharges > 0
+    ) {
+      hyperEngineOptions.hyperEngineCharges -= 1;
+      hyperEngineOptions.hyperEngineEnabled = true;
+    }
+
+    hyperEngineText.text = `HyperEngine(${
+      hyperEngineOptions.hyperEngineCharges
+    }) ${hyperEngineStatus()}`;
+  };
+
+  /**
+   * Player movement logic in the level map.
+   */
   const submarineMovement = () => {
     // Mapping player postion for the collision layer.
     const { x, y } = prefabTilePosition(player);
 
+    const movementFactor = hyperEngineOptions.hyperEngineEnabled
+      ? hyperEngineOptions.hyperEngineVelocity
+      : playerOptions.playerMovementSpeed;
+
     if (keyPressed('up') || keyPressed('w')) {
       if (tileIsWalkable({ x, y: y - 1 }, worldFullMap)) {
-        player.y -= playerMovementSpeed;
+        player.y -= movementFactor;
       }
     }
 
     if (keyPressed('down') || keyPressed('s')) {
       if (tileIsWalkable({ x, y: y + 1 }, worldFullMap)) {
-        player.y += playerMovementSpeed;
+        player.y += movementFactor;
       }
     }
 
     if (keyPressed('right') || keyPressed('d')) {
       if (tileIsWalkable({ x: x + 1, y }, worldFullMap)) {
-        player.x += playerMovementSpeed;
+        player.x += movementFactor;
       }
     }
 
     if (keyPressed('left') || keyPressed('a')) {
       if (tileIsWalkable({ x: x - 1, y }, worldFullMap)) {
-        player.x -= playerMovementSpeed;
+        player.x -= movementFactor;
+      }
+    }
+  };
+
+  /**
+   * Determine if the game ends when the time is over.
+   * @param dt delta time
+   */
+  const gameTimeUpdate = (dt: number) => {
+    deltaTime += dt;
+    if (deltaTime >= playerOptions.playerTimeRateConsumption) {
+      deltaTime = 0;
+      if (playerOptions.playerTime >= 1) {
+        playerOptions.playerTime -= 1;
+        timerText.text = playerOptions.playerTime.toString();
+      } else {
+        gameOver();
       }
     }
   };
@@ -171,9 +253,8 @@ const createMissionScene = (): IGameScene => {
   function sceneUpdate(dt: number) {
     if (stopLogic) return;
 
-    deltaTime += dt;
-
     submarineSonar(dt);
+    hyperEngineState(dt);
     submarineMovement();
 
     if (keyPressed('esc')) {
@@ -184,8 +265,8 @@ const createMissionScene = (): IGameScene => {
     // Check player collitions with other game entities
     gameEntityCollitions(timerCollectibles, (timer) => {
       window.zzfx(...soundFx.pickup);
-      playerTime += timer.rechargeValue;
-      timerText.text = playerTime.toString();
+      playerOptions.playerTime += timer.rechargeValue;
+      timerText.text = playerOptions.playerTime.toString();
     });
 
     gameEntityCollitions(cardsCollectibles, () => {
@@ -204,15 +285,7 @@ const createMissionScene = (): IGameScene => {
       Game.getInstance().missionCompleted();
     }
 
-    if (deltaTime >= playerTimeRateConsumption) {
-      deltaTime = 0;
-      if (playerTime >= 1) {
-        playerTime -= 1;
-        timerText.text = playerTime.toString();
-      } else {
-        gameOver();
-      }
-    }
+    gameTimeUpdate(dt);
   }
 
   return createScene({
@@ -225,7 +298,7 @@ const createMissionScene = (): IGameScene => {
       ...cardsCollectibles,
       player
     ],
-    messages: [timerText, missionText, cardsProgressText],
+    messages: [timerText, missionText, cardsProgressText, hyperEngineText],
     update(dt) {
       sceneUpdate(dt);
     }
