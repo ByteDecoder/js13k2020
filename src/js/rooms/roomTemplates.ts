@@ -11,7 +11,7 @@ const topRooms = [roomTypes.ltRoom, roomTypes.tRoom, roomTypes.tbRoom, roomTypes
 /**
  * Rooms with left doors.
  */
-const leftRooms = [roomTypes.lRoom, roomTypes.lrRoom, roomTypes.ltRoom];
+const leftRooms = [roomTypes.lrRoom, roomTypes.lRoom, roomTypes.lrRoom, roomTypes.ltRoom];
 /**
  * Rooms with right doors.
  */

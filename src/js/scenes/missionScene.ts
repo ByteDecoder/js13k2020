@@ -12,6 +12,7 @@ import {
   defaultHyperEngineOptions,
   defaultMapGeneratorOptions
 } from '../gameEngine/gameBalanceOptions';
+import { isTimeEnabled } from '../gameEngine/gameGlobals';
 
 /**
  * Create the playing level scene.
@@ -217,6 +218,8 @@ const createMissionScene = (): IGameScene => {
    * @param dt delta time
    */
   const gameTimeUpdate = (dt: number) => {
+    if (!isTimeEnabled) return;
+
     deltaTime += dt;
     if (deltaTime >= playerOptions.playerTimeRateConsumption) {
       deltaTime = 0;

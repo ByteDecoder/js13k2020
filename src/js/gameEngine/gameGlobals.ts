@@ -3,7 +3,7 @@ import { Position } from './locationMap';
 /**
  * Game sprite scale multiplier.
  */
-export const gameScale = 6;
+export const gameScale = 5;
 /**
  * Game sprite size.
  */
@@ -23,3 +23,8 @@ export const worldWidthSize = 15;
  * World max room size horizontally.
  */
 export const worldHeightSize = 15;
+
+/**
+ * We can stop the time here.
+ */
+export const isTimeEnabled = true;
