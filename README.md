@@ -26,7 +26,7 @@ How many missions, could you survive with the *Angelizer*?
   - If the play impact a mine, the player dies and game is over
 - Controls
   - Arrow keys or ASDW to move the player submarine
-  - When HyperEngine can be activated with the **space key**.
+  - When HyperEngine is ready, can be activated with the **space key** allowing the player moving faster.
 
 ## Getting started with development
 
