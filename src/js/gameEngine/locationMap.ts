@@ -21,6 +21,18 @@ export const prefabTilePosition = (prefab: Sprite): Position => {
 };
 
 /**
+ * Translate a point into the world map.
+ * @param axisValue
+ * @param objectSize
+ */
+export const calulateAxisRoomPosition = (axisValue: number, objectSize: number): number => {
+  return (
+    axisValue * objectSize * blockSize * gameScale +
+    Math.ceil(objectSize / 2) * blockSize * gameScale
+  );
+};
+
+/**
  * Checks if the Tile in the desired position is walkable by the player.
  * @param position tile position target.
  * @param tileMap tilemap definition.
