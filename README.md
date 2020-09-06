@@ -11,7 +11,7 @@ Bundled with 🖤 with Parcel.
 
 Exploring an unknow underwater facility, in a secret mission called **404 Mission**, your orders aboard the **Angelizer submarine(Project 404)**, is collect the **404 Cards** that contains traces of an unknown lost civilization for further study.
 
-How many missions, could you survive with the *Angelizer*?
+How many missions, could you survive with the *Angelizer* and its sonar sound?
 
 404 Mission game is based on a procedural dungeon roguelike that increases the replayability.
 
@@ -25,8 +25,8 @@ How many missions, could you survive with the *Angelizer*?
   - Mission is completed if the player collect all the 404 cards in the play level
   - If the play impact a mine, the player dies and game is over
 - Controls
-  - Arrow keys or ASDW to move the player submarine
-  - When HyperEngine is ready, can be activated with the **space key** allowing the player moving faster.
+  - **Arrow keys** or **ASDW** to move the player submarine
+  - When **HyperEngine** is ready, can be activated with the **space key** allowing the player moving faster.
   - **key f** enters in full screen mode, and **key esc** exits fullscreen mode.
 
 ### Gameplay screenshots
@@ -77,3 +77,9 @@ After building the production release, for save some extra bytes you can use adv
 ```bash
 advzip -z - 4 <game_zipfile>.zip
 ```
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at <https://github.com/ByteDecoder/js13k2020>.
+
+Copyright (c) 2020 [Rodrigo Reyes](https://twitter.com/bytedecoder) released under the MIT license
