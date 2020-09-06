@@ -28,3 +28,8 @@ export const worldHeightSize = 15;
  * We can stop the time here.
  */
 export const isTimeEnabled = true;
+
+/**
+ * Enable or diseable SFX.
+ */
+export const isSoundFxEnabled = true;

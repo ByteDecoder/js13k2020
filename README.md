@@ -27,6 +27,12 @@ How many missions, could you survive with the *Angelizer*?
 - Controls
   - Arrow keys or ASDW to move the player submarine
   - When HyperEngine can be activated with the **space key**.
+  - **key f** enters in full screen mode, and **key esc** exits fullscreen mode.
+
+### Gameplay screenshots
+
+![Screenshot One](./media/screen_shoot1.png)
+![Screenshot Two](./media/screen_shoot2.png)
 
 ## Getting started with development
 

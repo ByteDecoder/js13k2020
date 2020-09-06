@@ -1,4 +1,5 @@
-import { Scene, GameLoop, GameObject, init, initKeys, Text, Sprite } from 'kontra';
+import { Scene, GameLoop, GameObject, init, initKeys, Text, Sprite, keyPressed } from 'kontra';
+import { openFullscreen } from '../utils/html5Screen';
 
 init();
 initKeys();
@@ -40,6 +41,11 @@ export const createScene = (sceneOptions: SceneOptions): IGameScene => {
 
   const loop = GameLoop({
     update: (dt) => {
+      // Enters into fullscreen mode
+      if (keyPressed('f')) {
+        openFullscreen();
+      }
+
       if (sceneOptions.cameraLookTarget) {
         scene.lookAt(sceneOptions.cameraLookTarget);
       }
