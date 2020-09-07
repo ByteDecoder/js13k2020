@@ -3,7 +3,7 @@ import { Position } from './locationMap';
 /**
  * Game sprite scale multiplier.
  */
-export const gameScale = 5;
+export const gameScale = 1;
 /**
  * Game sprite size.
  */
@@ -12,7 +12,7 @@ export const blockSize = 8;
 /**
  * Initial game entry point.
  */
-export const playerStartingPoint: Position = { x: 5, y: 5 };
+export const playerStartingPoint: Position = { x: 1, y: 1 };
 
 /**
  * World max room size vertically.

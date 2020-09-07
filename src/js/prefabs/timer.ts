@@ -1,5 +1,6 @@
 import { Sprite } from 'kontra';
 import { blockSize, gameScale } from '../gameEngine/gameGlobals';
+import { defaultTimerRechargeValue } from '../gameEngine/gameBalanceOptions';
 
 /**
  * Creates a Timer prefab.
@@ -10,7 +11,7 @@ import { blockSize, gameScale } from '../gameEngine/gameGlobals';
 const createTimer = (x: number, y: number): Sprite =>
   Sprite({
     type: 'timer',
-    rechargeValue: 3,
+    rechargeValue: defaultTimerRechargeValue,
     x: x * gameScale,
     y: y * gameScale,
     radius: (blockSize * gameScale) / 2,

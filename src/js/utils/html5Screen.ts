@@ -14,7 +14,10 @@ const docWithBrowsersExitFunctions = document as Document & {
 
 export const openFullscreen = (): void => {
   if (docElmWithBrowsersFullScreenFunctions.requestFullscreen) {
-    docElmWithBrowsersFullScreenFunctions.requestFullscreen();
+    docElmWithBrowsersFullScreenFunctions
+      .requestFullscreen()
+      // eslint-disable-next-line no-console
+      .catch(() => console.log('A warning was hanlded when full screen was enabled'));
   } else if (docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen) {
     /* Firefox */
     docElmWithBrowsersFullScreenFunctions.mozRequestFullScreen();

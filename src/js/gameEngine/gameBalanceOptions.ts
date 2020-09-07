@@ -33,3 +33,5 @@ export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
     mineProbability: 70
   };
 };
+
+export const defaultTimerRechargeValue = 3;
