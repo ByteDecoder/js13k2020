@@ -79,7 +79,7 @@ const create = (): number[][] => {
             }
             break;
           case 4:
-            if (spawnPoint.x - 1 > 0 && newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
+            if (newWorld[spawnPoint.y][spawnPoint.x - 1] === 0) {
               newSpawnPoint = createRoomSpwanPoint(spawnPoint.x - 1, spawnPoint.y, 4);
             }
             break;
