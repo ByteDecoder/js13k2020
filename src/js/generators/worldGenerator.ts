@@ -49,9 +49,7 @@ const create = (): number[][] => {
    * @param startingDirection Direction to move
    */
   const generateRoomPath = (x: number, y: number, startingDirection: number): void => {
-    const pendingRooms: RoomSpawnPoint[] = [];
-
-    pendingRooms.push(createRoomSpwanPoint(x, y, startingDirection));
+    const pendingRooms = [createRoomSpwanPoint(x, y, startingDirection)];
 
     do {
       const spawnPoint = pendingRooms.shift();
@@ -61,7 +59,6 @@ const create = (): number[][] => {
 
       newRoom.roomDirections.forEach((direction) => {
         let newSpawnPoint: RoomSpawnPoint = null;
-
         switch (direction) {
           case 1:
             if (newWorld[spawnPoint.y - 1][spawnPoint.x] === 0) {
