@@ -33,3 +33,8 @@ export const isTimeEnabled = true;
  * Enable or diseable SFX.
  */
 export const isSoundFxEnabled = true;
+
+/**
+ * Number of missions to end the game.
+ */
+export const endgameTotalMissionCompleted = 1;

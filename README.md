@@ -9,25 +9,27 @@ Bundled with 🖤 with Parcel.
 
 ## 404 Mission
 
-Exploring an unknow underwater facility, in a secret mission called **404 Mission**, your orders aboard the **Angelizer submarine(Project 404)**, is collect the **404 Cards** that contains traces of an unknown lost civilization for further study.
+Exploring an unknown underwater facility, in a secret mission called **404 Mission**, your orders aboard the **Angelizer submarine(Project 404)**, is collect the **404 Cards** that contains traces of an unknown lost civilization for further study
+within **10** dangerous missions. Oxygen resources are scarce in the facility depths, meaning your time in each mission is limited.
 
 How many missions, could you survive with the *Angelizer* and its sonar sound?
 
 404 Mission game is based on a procedural dungeon roguelike that increases the replayability.
 
 - Objective
-  - Collected all the 404 cards required in each mission level and try to survive the major number of missions
-  - The Player will survive until the time is depleted or getting an impact from a mine
+  - Collected all the 404 cards required at each mission level and try to survive the major number of missions.
+  - The Player will survive until the time is depleted or getting an impact from a mine.
+  - Collect cards from **10** missions to discover something about that place.
 - Mechanics
-  - Collect bubble times to extend your life time
+  - Collect bubble times to extend your lifetime
 - Rules
-  - Game ends if the time expires
-  - Mission is completed if the player collect all the 404 cards in the play level
-  - If the play impact a mine, the player dies and game is over
+  - The game ends if the time expires
+  - The mission is completed if the player collects all the 404 cards in the play level
+  - If the play impact a mine, the player dies and the game is over
 - Controls
   - **Arrow keys** or **ASDW** to move the player submarine
-  - When **HyperEngine** is ready, can be activated with the **space key** allowing the player moving faster.
-  - **key f** enters in full screen mode, and **key esc** exits fullscreen mode.
+  - When **HyperEngine** is ready, can be activated with the **space key** allowing the player to move faster.
+  - **key f** enters in full-screen mode, and **key ESC** exits the fullscreen mode.
 
 ### Gameplay screenshots
 

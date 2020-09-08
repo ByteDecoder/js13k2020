@@ -12,7 +12,7 @@ import {
   defaultHyperEngineOptions,
   defaultMapGeneratorOptions
 } from '../gameEngine/gameBalanceOptions';
-import { isTimeEnabled } from '../gameEngine/gameGlobals';
+import { isTimeEnabled, endgameTotalMissionCompleted } from '../gameEngine/gameGlobals';
 
 /**
  * Create the playing level scene.
@@ -46,11 +46,6 @@ const createMissionScene = (): IGameScene => {
     minesEnemies,
     backgroundProps
   } = levelMapGenerator.create(worldMap, mapOptions);
-
-  // eslint-disable-next-line no-console
-  // console.log(worldMap);
-  // eslint-disable-next-line no-console
-  // console.log(worldFullMap);
 
   /**
    * Return the HyperEngine status.
@@ -269,7 +264,12 @@ const createMissionScene = (): IGameScene => {
 
     if (collectedCards >= cardsCollectibles.length) {
       finalizePlaySession();
-      Game.getInstance().missionCompleted();
+      Game.getInstance().missionCount += 1;
+      if (endgameTotalMissionCompleted < Game.getInstance().missionCount) {
+        Game.getInstance().missionCompleted();
+      } else {
+        Game.getInstance().gameEnding();
+      }
     }
 
     gameTimeUpdate(dt);

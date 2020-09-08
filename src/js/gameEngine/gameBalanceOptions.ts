@@ -26,7 +26,7 @@ export const defaultHyperEngineOptions = (): HyperEngineOptions => {
 export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
   return {
     maxTimersPerRoom: 3,
-    timerProbability: 150,
+    timerProbability: 200,
     maxCardsPerLevel: 10,
     cardProbability: 200,
     maxMinesPerRoom: 20,

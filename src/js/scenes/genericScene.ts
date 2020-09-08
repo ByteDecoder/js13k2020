@@ -20,7 +20,7 @@ const createGenericScene = (
 
   const action = createSmText(actionText, { x: 400, y: 400 });
 
-  const footer = createText(footerText, { x: 170, y: 580 }, 16);
+  const footer = createText(footerText, { x: 200, y: 580 }, 16);
 
   return createScene({
     messages: [title, subtitle, action, footer],

@@ -6,6 +6,7 @@ import createGameOverScene from '../scenes/gameOverScene';
 import soundFx from '../sounds/soundBank';
 import createMissionCompletedScene from '../scenes/missionCompletedScene';
 import spriteSheetPath from '../../sprites/spritesheet.png';
+import creatGameEndingScene from '../scenes/gameEndScene';
 
 /**
  * Singleton instance for handling the entire game execution.
@@ -76,16 +77,30 @@ export default class Game {
     this.start();
   }
 
+  /**
+   * Set the game over scene.
+   */
   public gameOver(): void {
     this.stopCurrentScene();
     this.stateMachine.transitionToGameOver();
     this.start();
   }
 
+  /**
+   * Set the mission completed scene.
+   */
   public missionCompleted(): void {
-    this.missionCount += 1;
     this.stopCurrentScene();
     this.stateMachine.transitionToMissionCompleted();
+    this.start();
+  }
+
+  /**
+   * Set the ending game scene.
+   */
+  public gameEnding(): void {
+    this.stopCurrentScene();
+    this.stateMachine.transitionToGameEnding();
     this.start();
   }
 
@@ -108,6 +123,9 @@ export default class Game {
         break;
       case GameStates.MissionCompleted:
         this.currentGameScene = createMissionCompletedScene();
+        break;
+      case GameStates.GameEnding:
+        this.currentGameScene = creatGameEndingScene();
         break;
       default:
         this.currentGameScene = createMenuScene();
