@@ -264,8 +264,8 @@ const createMissionScene = (): IGameScene => {
 
     if (collectedCards >= cardsCollectibles.length) {
       finalizePlaySession();
-      Game.getInstance().missionCount += 1;
-      if (endgameTotalMissionCompleted < Game.getInstance().missionCount) {
+      if (endgameTotalMissionCompleted !== Game.getInstance().missionCount) {
+        Game.getInstance().missionCount += 1;
         Game.getInstance().missionCompleted();
       } else {
         Game.getInstance().gameEnding();

@@ -37,4 +37,4 @@ export const isSoundFxEnabled = true;
 /**
  * Number of missions to end the game.
  */
-export const endgameTotalMissionCompleted = 1;
+export const endgameTotalMissionCompleted = 10;
