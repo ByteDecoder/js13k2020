@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com:ByteDecoder/js13k2020.git",
   "author": "Rodrigo Reyes <encode@bytedecoder.me>",
-  "license": "MIT",
+  "license": "GNU General Public License (GPL) 3.0",
   "scripts": {
     "check-file-size": "yarn node ./scripts/check-file-size.js",
     "delete-dist": "yarn rimraf ./dist .cache/",
