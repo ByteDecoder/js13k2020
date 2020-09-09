@@ -22,6 +22,7 @@ How many missions, could you survive with the *Angelizer* and its sonar sound?
   - Collect cards from **10** missions to discover something about that place.
 - Mechanics
   - Collect bubble times to extend your lifetime
+  - There is a little chnace to get extra Hyper Engine charges in the mission levels.
 - Rules
   - The game ends if the time expires
   - The mission is completed if the player collects all the 404 cards in the play level
