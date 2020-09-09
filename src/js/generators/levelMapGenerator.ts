@@ -7,6 +7,7 @@ import createTimer from '../prefabs/timer';
 import createCard from '../prefabs/card';
 import createMine from '../prefabs/mine';
 import createBacgroundProp from '../prefabs/backgroundProp';
+import createHyperEngine from '../prefabs/hyperEngine';
 
 export interface MapGeneratorOptions {
   /**
@@ -34,6 +35,14 @@ export interface MapGeneratorOptions {
    * Chance to get a mine enemy in a room.
    */
   mineProbability: number;
+  /**
+   * Max hyper engines items per level.
+   */
+  hyperEnginePerLevel: number;
+  /**
+   * Chance to get a hyper engine per level.
+   */
+  hyperEngineProbability: number;
 }
 
 export interface MapGeneratorOutput {
@@ -43,6 +52,7 @@ export interface MapGeneratorOutput {
   cardsCollectibles: Sprite[];
   minesEnemies: Sprite[];
   backgroundProps: Sprite[];
+  hyperEngineCollectibles: Sprite[];
 }
 
 /**
@@ -61,12 +71,14 @@ const create = (
   const cardsCollectibles = [];
   const minesEnemies = [];
   const backgroundProps = [];
+  const hyperEngineCollectibles = [];
 
   const worldFullMap = Array(entryRoom.height * worldHeightSize)
     .fill(0)
     .map(() => Array(entryRoom.width * worldWidthSize).fill(0));
 
   let totalCards = 0;
+  let totalHyperEngines = 0;
 
   for (let y = 0; y < worldHeightSize; y += 1) {
     for (let x = 0; x < worldWidthSize; x += 1) {
@@ -127,10 +139,21 @@ const create = (
                 }
               }
 
+              // Create HyperEngines collectibles.
+              if (totalHyperEngines < mapGeneratorOptions.hyperEnginePerLevel && !pointUsed) {
+                const chance = getRandomInt(0, mapGeneratorOptions.hyperEngineProbability);
+                if (chance === 10) {
+                  const hyperEngine = createHyperEngine(baseX, baseY);
+                  totalHyperEngines += 1;
+                  pointUsed = true;
+                  hyperEngineCollectibles.push(hyperEngine);
+                }
+              }
+
               // Create mines enemies.
               if (totalMines < mapGeneratorOptions.maxMinesPerRoom && !pointUsed) {
                 const chanceCollectible = getRandomInt(0, mapGeneratorOptions.mineProbability);
-                if (chanceCollectible === 5) {
+                if (chanceCollectible >= 5 && chanceCollectible <= 6) {
                   const mine = createMine(baseX, baseY);
                   totalMines += 1;
                   pointUsed = true;
@@ -159,7 +182,8 @@ const create = (
     timerCollectibles,
     cardsCollectibles,
     minesEnemies,
-    backgroundProps
+    backgroundProps,
+    hyperEngineCollectibles
   };
 };
 
