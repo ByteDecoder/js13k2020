@@ -23,6 +23,9 @@ export const defaultHyperEngineOptions = (): HyperEngineOptions => {
   };
 };
 
+/**
+ * Default Map Generator options
+ */
 export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
   return {
     maxTimersPerRoom: 3,
@@ -36,4 +39,7 @@ export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
   };
 };
 
+/**
+ * Default timer collectible recharge value.
+ */
 export const defaultTimerRechargeValue = 3;
