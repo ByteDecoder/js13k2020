@@ -1,7 +1,7 @@
 # JS13kbGames 2020 - 404 Mission
 
 ![CI](https://github.com/ByteDecoder/js13k2020/workflows/CI/badge.svg)
-![License](https://img.shields.io/badge/license-MIT-green)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 404 game theme for js13kbGames coding competition Sep 13, 2020
 
@@ -84,4 +84,4 @@ advzip -z - 4 <game_zipfile>.zip
 
 Bug reports and pull requests are welcome on GitHub at <https://github.com/ByteDecoder/js13k2020>.
 
-Copyright (c) 2020 [Rodrigo Reyes](https://twitter.com/bytedecoder) released under the MIT license
+Copyright (c) 2020 [Rodrigo Reyes](https://twitter.com/bytedecoder) released under the GNU General Public License (GPL) 3.0
