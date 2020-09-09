@@ -10,7 +10,7 @@ const createMenuScene = (): IGameScene => {
   const title = '404 MISSION';
   const subtitle = 'An underwater adventure';
   const action = 'Press [ENTER] to continue';
-  const footer = 'Made by ByteDecoder, 2020';
+  const footer = 'Made by Rodrigo Reyes, 2020';
 
   return createGenericScene(title, subtitle, action, footer, () => {
     if (keyPressed('enter')) {

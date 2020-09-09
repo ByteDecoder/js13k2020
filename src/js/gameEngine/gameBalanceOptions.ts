@@ -26,11 +26,13 @@ export const defaultHyperEngineOptions = (): HyperEngineOptions => {
 export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
   return {
     maxTimersPerRoom: 3,
-    timerProbability: 200,
+    timerProbability: 170,
     maxCardsPerLevel: 10,
     cardProbability: 200,
-    maxMinesPerRoom: 20,
-    mineProbability: 70
+    maxMinesPerRoom: 30,
+    mineProbability: 70,
+    hyperEnginePerLevel: 2,
+    hyperEngineProbability: 250
   };
 };
 

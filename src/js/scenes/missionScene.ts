@@ -44,7 +44,8 @@ const createMissionScene = (): IGameScene => {
     timerCollectibles,
     cardsCollectibles,
     minesEnemies,
-    backgroundProps
+    backgroundProps,
+    hyperEngineCollectibles
   } = levelMapGenerator.create(worldMap, mapOptions);
 
   /**
@@ -165,6 +166,7 @@ const createMissionScene = (): IGameScene => {
     ) {
       hyperEngineOptions.hyperEngineCharges -= 1;
       hyperEngineOptions.hyperEngineEnabled = true;
+      window.zzfx(...soundFx.activateHyperEngine);
     }
 
     hyperEngineText.text = `HyperEngine(${
@@ -251,6 +253,14 @@ const createMissionScene = (): IGameScene => {
       timerText.text = playerOptions.playerTime.toString();
     });
 
+    gameEntityCollitions(hyperEngineCollectibles, () => {
+      window.zzfx(...soundFx.card);
+      hyperEngineOptions.hyperEngineCharges += 1;
+      hyperEngineText.text = `HyperEngine(${
+        hyperEngineOptions.hyperEngineCharges
+      }) ${hyperEngineStatus()}`;
+    });
+
     gameEntityCollitions(cardsCollectibles, () => {
       window.zzfx(...soundFx.card);
       collectedCards += 1;
@@ -283,6 +293,7 @@ const createMissionScene = (): IGameScene => {
       ...minesEnemies,
       ...timerCollectibles,
       ...cardsCollectibles,
+      ...hyperEngineCollectibles,
       player
     ],
     messages: [timerText, missionText, cardsProgressText, hyperEngineText],
