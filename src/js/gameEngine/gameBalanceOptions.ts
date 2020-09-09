@@ -29,10 +29,10 @@ export const defaultMapGeneratorOptions = (): MapGeneratorOptions => {
     timerProbability: 170,
     maxCardsPerLevel: 10,
     cardProbability: 200,
-    maxMinesPerRoom: 20,
+    maxMinesPerRoom: 30,
     mineProbability: 70,
-    hyperEnginePerLevel: 3,
-    hyperEngineProbability: 200
+    hyperEnginePerLevel: 2,
+    hyperEngineProbability: 250
   };
 };
 

@@ -18,11 +18,10 @@ How many missions, could you survive with the *Angelizer* and its sonar sound?
 
 - Objective
   - Collected all the 404 cards required at each mission level and try to survive the major number of missions.
-  - The Player will survive until the time is depleted or getting an impact from a mine.
   - Collect cards from **10** missions to discover something about that place.
 - Mechanics
   - Collect bubble times to extend your lifetime
-  - There is a little chance to get extra Hyper Engine charges through the gameplay.
+  - There is a chance to get extra Hyper Engine charges through the gameplay.
 - Rules
   - The game ends if the time expires
   - The mission is completed if the player collects all the 404 cards in the play level
